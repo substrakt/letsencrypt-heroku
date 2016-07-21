@@ -4,6 +4,8 @@
 
 With the advent of free SSL and Heroku finally offering free SSL endpoints, it's about time we made it ridiculously easy to get an SSL cert for any Heroku application and keep it up to date.
 
+We wrote a blog post about it [here](https://substrakt.com/heroku-ssl-me-weve-come-a-long-way/)
+
 **This is alpha software. It may work, or it may not. We use it in production at [Substrakt](https://substrakt.com) but your milage may vary until 1.0.**
 
 [![Substrakt Logo](http://birmingham-made-me.org/wp-content/uploads/2014/03/substrakt-logo-300x55.png)](https://substrakt.com/)
