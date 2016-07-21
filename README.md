@@ -38,10 +38,10 @@ GET domains/{domain_name}?subdomains={subdomains}&debug={0/1}&app_name={heroku_a
 
 Parameters:
 
-`domain_name` is the domain name without subdomains. (e.g. `google.com` == Good. `www.google.com` == Bad.)
-`subdomains` is a comma delimited list of subdomains to cover. Usually this is just `www`, but could also be anything else such as `www,dishwasher,git,purple`.
-`debug` is `1` or `0` depending if this is a test or not. When debug is on, non-valid certificates are generated.
-`heroku_app_name` is the name of the application on Heroku.
+* `domain_name` is the domain name without subdomains. (e.g. `google.com` == Good. `www.google.com` == Bad.)
+* `subdomains` is a comma delimited list of subdomains to cover. Usually this is just `www`, but could also be anything else such as `www,dishwasher,git,purple`.
+* `debug` is `1` or `0` depending if this is a test or not. When debug is on, non-valid certificates are generated.
+* `heroku_app_name` is the name of the application on Heroku.
 
 **That's it.**
 
