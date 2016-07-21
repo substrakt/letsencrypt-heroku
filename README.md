@@ -27,6 +27,7 @@ As we're currently in alpha, there are some severe limitations.
 1. Renewals do not happen automatically. (Not sure if this is in the scope of this application or whether or not the application itself should handle renewals?)
 1. We're using an unreleased Heroku API endpoint and `http-sni` is beta. If it changes or is removed, this application will simply cease to work.
 1. It doesn't currently add the CNAME records to CloudFlare once the SSL certificate has been generated. (Possibly out of scope?)
+1. It's a bit slow (around 1min per validated subdomain) due to the nature of DNS resolution. Not sure how to resolve this yet.
 
 ## Usage
 1. Run the application. Either do it yourself or deploy to Heroku for free.
