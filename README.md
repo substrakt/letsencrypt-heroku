@@ -29,7 +29,8 @@ As we're currently in alpha, there are some severe limitations.
 1. It doesn't currently add the CNAME records to CloudFlare once the SSL certificate has been generated. (Possibly out of scope?)
 
 ## Usage
-1. Run the application.
+1. Run the application. Either do it yourself or deploy to Heroku for free.
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 1. Hit the following endpoint:
 
 ```
