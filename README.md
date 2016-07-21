@@ -30,7 +30,7 @@ As we're currently in alpha, there are some severe limitations.
 
 ## Usage
 1. Run the application. Either do it yourself or deploy to Heroku for free.
-[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/substrakt/letsencrypt-heroku/tree/master)
 1. Hit the following endpoint:
 
 ```
