@@ -28,6 +28,7 @@ As we're currently in alpha, there are some severe limitations.
 1. We're using an unreleased Heroku API endpoint and `http-sni` is beta. If it changes or is removed, this application will simply cease to work.
 1. It doesn't currently add the CNAME records to CloudFlare once the SSL certificate has been generated. (Possibly out of scope?)
 1. It's a bit slow (around 1min per validated subdomain) due to the nature of DNS resolution. Not sure how to resolve this yet.
+1. It does not force the secured application to only accept requests via SSL. This is because we use a variety of frameworks so we must remain framework agnostic.
 
 ## Usage
 1. Run the application. Either do it yourself or deploy to Heroku for free.
