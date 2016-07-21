@@ -20,6 +20,9 @@
     "AUTH_TOKEN": {
       "description": "A random token to authenticate all requests to the API. Treat this like a password.",
       "generator": "secret"
+    },
+    "CONTACT_EMAIL": {
+      "description": "A contact email address for LetsEncrypt to inform of revokcations and expirations."
     }
   },
   "formation": {
