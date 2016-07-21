@@ -34,7 +34,7 @@ As we're currently in alpha, there are some severe limitations.
 1. Hit the following endpoint:
 
 ```
-GET domains/{domain_name}?subdomains={subdomains}&debug={0/1}&app_name={heroku_app_name}
+GET domains/{domain_name}?subdomains={subdomains}&debug={0/1}&app_name={heroku_app_name}&auth_token={auth_token}
 ```
 
 Parameters:
@@ -43,6 +43,7 @@ Parameters:
 * `subdomains` is a comma delimited list of subdomains to cover. Usually this is just `www`, but could also be anything else such as `www,dishwasher,git,purple`.
 * `debug` is `1` or `0` depending if this is a test or not. When debug is on, non-valid certificates are generated.
 * `heroku_app_name` is the name of the application on Heroku.
+* `auth_token` is the value of `ENV['AUTH_TOKEN']`.
 
 **That's it.**
 
