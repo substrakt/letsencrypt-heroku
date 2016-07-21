@@ -21,6 +21,7 @@ With the advent of free SSL and Heroku finally offering free SSL endpoints, it's
 
 ## Limitations
 As we're currently in alpha, there are some severe limitations.
+
 1. Heroku apps must be in the common runtime. `http-sni` is not supported in private spaces, yet. This shouldn't be a problem for 99% of applications.
 1. DNS must be managed by CloudFlare.
 1. Renewals do not happen automatically. (Not sure if this is in the scope of this application or whether or not the application itself should handle renewals?)
