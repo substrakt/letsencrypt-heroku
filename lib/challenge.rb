@@ -12,6 +12,4 @@ class Challenge
     @authorization.dns01
   end
 
-
-
 end

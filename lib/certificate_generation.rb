@@ -9,6 +9,8 @@ require 'redis'
 
 class CertificateGeneration
 
+  HEROKU_BASE_URL = "https://api.heroku.com".freeze
+
   attr_reader :app_name, :debug, :subdomains, :domain, :token
 
   $redis = Redis.new(url: ENV['REDIS_URL'])
@@ -64,35 +66,35 @@ class CertificateGeneration
     rescue Acme::Client::Error => e
       set_error(e.message)
     end
-    set_message('Got certificate. Let\'s put it on Heroku.')
+    deploy_certificate(certificate)
 
 
+    set_message('Done')
+    set_stats(:success)
+  end
+
+  private
+
+  def deploy_certificate(certificate)
+    set_message('Deploying certificate to Heroku')
     headers = {
       "Accept": 'application/vnd.heroku+json; version=3.sni_ssl_cert',
       "Authorization": "Bearer #{ENV['HEROKU_OAUTH_KEY']}",
       "Content-Type": "application/json"
     }
-
-    query = {
-      enabled: true
-    }.to_json
-    HTTParty.patch("https://api.heroku.com/apps/#{app_name}/features/http-sni", headers: headers, body: query)
+    query = { enabled: true }.to_json
+    HTTParty.patch("#{HEROKU_BASE_URL}/apps/#{@app_name}/features/http-sni", headers: headers, body: query)
 
     query = {
       "certificate_chain": certificate.fullchain_to_pem,
       "private_key": certificate.request.private_key.to_pem
     }.to_json
-    response = HTTParty.post("https://api.heroku.com/apps/#{app_name}/sni-endpoints", headers: headers, body: query)
+    response = HTTParty.post("#{HEROKU_BASE_URL}/apps/#{@app_name}/sni-endpoints", headers: headers, body: query)
     if response.code == 422
-      sni_endpoints = HTTParty.get("https://api.heroku.com/apps/#{app_name}/sni-endpoints", headers: headers)
-      response = HTTParty.patch("https://api.heroku.com/apps/#{app_name}/sni-endpoints/#{sni_endpoints.parsed_response[0]["id"]}", headers: headers, body: query)
+      sni_endpoints = HTTParty.get("#{HEROKU_BASE_URL}/apps/#{@app_name}/sni-endpoints", headers: headers)
+      HTTParty.patch("#{HEROKU_BASE_URL}/apps/#{@app_name}/sni-endpoints/#{sni_endpoints.parsed_response[0]["id"]}", headers: headers, body: query)
     end
-
-    set_message('Done')
-    set_status(:success)
   end
-
-  private
 
   def redis_key
     @token
