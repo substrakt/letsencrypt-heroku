@@ -61,7 +61,7 @@ This will start the process in the background and output something like this:
 }
 ```
 
-That API URL will give you updates as to the certificate generation process. You should poll this to check how it's going.
+That API URL will give you updates as to the certificate generation process. You should poll this to check how it's going. Redis is used as a store for status updates as well as the backend for Resque.
 
 The output looks something like this:
 
