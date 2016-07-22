@@ -42,7 +42,7 @@ As we're currently in alpha, there are some severe limitations.
 1. Hit the following endpoint:
 
 ```
-GET certificate_generations/new/{domain_name}?subdomains={subdomains}&debug={0/1}&app_name={heroku_app_name}&auth_token={auth_token}
+GET certificate_generation/new/{domain_name}?subdomains={subdomains}&debug={0/1}&app_name={heroku_app_name}&auth_token={auth_token}
 ```
 
 Parameters:
