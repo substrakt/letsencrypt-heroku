@@ -26,6 +26,10 @@ class CertificateGeneration
   def provision!
     set_status(:starting)
     $redis.set("#{redis_key}_app_name", @app_name)
+    $redis.set("#{redis_key}_domain", @domain)
+    $redis.set("#{redis_key}_subdomains", @subdomains)
+    $redis.set("#{redis_key}_debug", @debug)
+
     set_status(:in_progress)
     registration = @client.register(contact: "mailto:#{ENV['CONTACT_EMAIL']}")
     registration.agree_terms
@@ -44,12 +48,12 @@ class CertificateGeneration
         set_message('Sleeping for 1 minute while we wait for DNS to propagate.')
         sleep(60)
         challenge.request_verification
-        set_message('---> Sleeping for 2 seconds while LE verifies our ownership.')
+        set_message('Sleeping for 2 seconds while LE verifies our ownership.')
         sleep(2)
         if challenge.verify_status == 'valid'
-          set_message('---> YAY! Validation successful. On to certificate generation.')
+          set_message('YAY! Validation successful. On to certificate generation.')
         else
-          set_error('---> Oh no. Validation was not successful. Try again.')
+          set_error('Oh no. Validation was not successful. Try again.')
         end
       end
     end
@@ -60,7 +64,7 @@ class CertificateGeneration
     rescue Acme::Client::Error => e
       set_error(e.message)
     end
-    set_message('---> Got certificate. Let\'s put it on Heroku.')
+    set_message('Got certificate. Let\'s put it on Heroku.')
 
 
     headers = {
@@ -83,12 +87,15 @@ class CertificateGeneration
       sni_endpoints = HTTParty.get("https://api.heroku.com/apps/#{app_name}/sni-endpoints", headers: headers)
       response = HTTParty.patch("https://api.heroku.com/apps/#{app_name}/sni-endpoints/#{sni_endpoints.parsed_response[0]["id"]}", headers: headers, body: query)
     end
+
+    set_message('Done')
+    set_status(:success)
   end
 
   private
 
   def redis_key
-    "#{@app_name}_#{@token}"
+    @token
   end
 
   def set_status(status)
