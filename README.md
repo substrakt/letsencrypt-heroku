@@ -42,7 +42,7 @@ As we're currently in alpha, there are some severe limitations.
 1. Hit the following endpoint:
 
 ```
-GET domain/{domain_name}?subdomains={subdomains}&debug={0/1}&app_name={heroku_app_name}&auth_token={auth_token}
+GET certificate_generations/new/{domain_name}?subdomains={subdomains}&debug={0/1}&app_name={heroku_app_name}&auth_token={auth_token}
 ```
 
 Parameters:
@@ -52,6 +52,34 @@ Parameters:
 * `debug` is `1` or `0` depending if this is a test or not. When debug is on, non-valid certificates are generated.
 * `heroku_app_name` is the name of the application on Heroku.
 * `auth_token` is the value of `ENV['AUTH_TOKEN']`.
+
+This will start the process in the background and output something like this:
+
+```
+{
+  status_path: "http://localhost:5000/certificate_generation/3911dd66aade4cfdf9dd1d0e1cebde87"
+}
+```
+
+That API URL will give you updates as to the certificate generation process. You should poll this to check how it's going.
+
+The output looks something like this:
+
+```
+{
+  token: "3911dd66aade4cfdf9dd1d0e1cebde87",
+  status: "success",
+  error: null,
+  domain: "substrakt.com",
+  subdomains: [
+    "www",
+    "www3"
+  ],
+  message: "Done"
+}
+```
+
+
 
 **That's it.**
 
