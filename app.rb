@@ -4,7 +4,7 @@ Dotenv.load
 
 require_relative 'workers/worker'
 
-get '/domain/:domain' do
+post '/certificate_generation/:domain' do
   authenticate!
   token = SecureRandom.hex
   Worker.perform_async(params[:domain], params[:subdomains], params[:debug], params[:app_name], token)
