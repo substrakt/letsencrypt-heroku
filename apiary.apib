@@ -18,6 +18,7 @@ Provision a new SSL certificate using this endpoint.
     + debug (integer, optional) - `1` if using the letsencrypt staging endpoint. Recommended for testing.
     + app_name (string) - The name of the Heroku application to be secured.
     + auth_token (string) - AUTH TOKEN value.
+    + renew (integer, optional) - `1` to renew certificate after 85 days.
 
 
 + Response 201 (application/json)
