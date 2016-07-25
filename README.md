@@ -1,5 +1,7 @@
 # letsencrypt-heroku
 
+[![Code Climate](https://codeclimate.com/github/substrakt/letsencrypt-heroku/badges/gpa.svg)](https://codeclimate.com/github/substrakt/letsencrypt-heroku)
+
 > Let's make *everything* secure.
 
 With the advent of free SSL and Heroku finally offering free SSL endpoints, it's about time we made it ridiculously easy to get an SSL cert for any Heroku application and keep it up to date.
