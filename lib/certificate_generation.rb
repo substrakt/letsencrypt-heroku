@@ -11,23 +11,25 @@ class CertificateGeneration
 
   HEROKU_BASE_URL = "https://api.heroku.com".freeze
 
-  attr_reader :app_name, :debug, :subdomains, :domain, :token
+  attr_reader :app_name, :debug, :subdomains, :domain, :token, :renew
 
   $redis = Redis.new(url: ENV['REDIS_URL'])
 
-  def initialize(domain, subdomains, debug, app_name, token)
+  def initialize(domain, subdomains, debug, app_name, token, renew)
     @app_name = app_name
     @debug = debug
     @subdomains = subdomains
     @domain = domain
     @token = token
     @client = acme_client
+    @renew = renew
     set_status(:initialized)
   end
 
   def provision!
     set_status(:starting)
     $redis.set("#{redis_key}_app_name", @app_name)
+    $redis.set("#{redis_key}_renew", @renew)
     $redis.set("#{redis_key}_domain", @domain)
     $redis.set("#{redis_key}_subdomains", @subdomains)
     $redis.set("#{redis_key}_debug", @debug)
@@ -63,17 +65,20 @@ class CertificateGeneration
     csr = Acme::Client::CertificateRequest.new(names: domains.flatten)
     begin
       certificate = @client.new_certificate(csr)
+      set_renewal if renew
     rescue Acme::Client::Error => e
       set_error(e.message)
     end
     deploy_certificate(certificate)
-
-
     set_message('Done')
-    set_stats(:success)
+    set_status(:success)
   end
 
   private
+
+  def set_renewal
+    Worker.perform_in(85.days, @domain, @subdomains, @debug, @app_name, @token, @renew)
+  end
 
   def deploy_certificate(certificate)
     set_message('Deploying certificate to Heroku')
