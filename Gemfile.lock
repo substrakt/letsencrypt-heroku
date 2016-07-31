@@ -35,6 +35,7 @@ GEM
     rack (1.6.4)
     rack-protection (1.5.3)
       rack
+    rake (11.2.2)
     redis (3.3.1)
     securecompare (1.0.0)
     sidekiq (4.1.4)
@@ -62,6 +63,7 @@ DEPENDENCIES
   httparty
   json-jwt (= 1.5.2)
   puma
+  rake
   redis
   sidekiq
   sinatra
