@@ -1,6 +1,7 @@
 # letsencrypt-heroku
 
 [![Code Climate](https://codeclimate.com/github/substrakt/letsencrypt-heroku/badges/gpa.svg)](https://codeclimate.com/github/substrakt/letsencrypt-heroku)
+[![Build Status](https://travis-ci.org/substrakt/letsencrypt-heroku.svg?branch=master)](https://travis-ci.org/substrakt/letsencrypt-heroku)
 
 > Let's make *everything* secure.
 

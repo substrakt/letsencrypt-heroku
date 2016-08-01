@@ -1,7 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    acme-client (0.3.6)
+    acme-client (0.3.7)
       faraday (~> 0.9, >= 0.9.1)
       json-jwt (~> 1.2, >= 1.2.3)
     activesupport (5.0.0)
@@ -17,8 +17,7 @@ GEM
     dotenv (2.1.1)
     faraday (0.9.2)
       multipart-post (>= 1.2, < 3)
-    httparty (0.13.7)
-      json (~> 1.8)
+    httparty (0.14.0)
       multi_xml (>= 0.5.2)
     i18n (0.7.0)
     json (1.8.3)
@@ -32,10 +31,11 @@ GEM
     multi_json (1.12.1)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
-    puma (3.5.2)
+    puma (3.6.0)
     rack (1.6.4)
     rack-protection (1.5.3)
       rack
+    rake (11.2.2)
     redis (3.3.1)
     securecompare (1.0.0)
     sidekiq (4.1.4)
@@ -63,6 +63,7 @@ DEPENDENCIES
   httparty
   json-jwt (= 1.5.2)
   puma
+  rake
   redis
   sidekiq
   sinatra
