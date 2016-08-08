@@ -54,12 +54,13 @@ You can install letsencrypt-heroku either directly on to Heroku *(recommended)* 
 You can deploy this application anywhere you can run a Rack app. (Azure, Heroku, AWS, local, etc.)
 
 1. Download the repo `git clone https://github.com/substrakt/letsencrypt-heroku.git`
-1. Copy `.envsample` to `.env`. `cp .envsample .env`
-The `.env` file is read when the application starts and should contain all of the required environment variables. **DO NOT COMMIT THIS FILE TO SOURCE CONTROL**
+1. Install Redis. (`brew install redis`)
+1. Install foreman (`gem install foreman`)
+1. Copy `.envsample` to `.env` using `cp .envsample .env`. The `.env` file is read when the application starts and should contain all of the required environment variables. **DO NOT COMMIT THIS FILE TO SOURCE CONTROL**
+1. Run the application locally using `foreman start`.
+1. Deploy however you want to!
 
 ## Usage
-1. Run the application. Either do it yourself or deploy to Heroku for free.
-[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/substrakt/letsencrypt-heroku/tree/master)
 1. Hit the following endpoint:
 
 ```
