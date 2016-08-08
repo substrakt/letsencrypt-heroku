@@ -39,9 +39,34 @@ As we're currently in alpha, there are some severe limitations.
 1. It's a bit slow (around 1min per validated subdomain) due to the nature of DNS resolution. Not sure how to resolve this yet.
 1. It does not force the secured application to only accept requests via SSL. This is because we use a variety of frameworks so we must remain framework agnostic.
 
+## Installation
+
+You can install letsencrypt-heroku either directly on to Heroku *(recommended)* or download the code and deploy it yourself anywhere you can run a Rack app.
+
+First off, you'll need a Heroku auth token.
+
+1. `heroku plugins:install heroku-cli-oauth`
+1. `heroku authorizations:create -d "letsencrypt-heroku"`
+1. Save the token from this. We'll use it later.
+
+### Installation on Heroku
+
+1. Deploy automatically to Heroku using this button: [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/substrakt/letsencrypt-heroku/tree/master)
+1. Input all the required parameters as asked for by the Heroku setup wizard. This includes the heroku token from above.
+1. This will set up the application and all dependencies automatically including a free instance of Heroku Redis. (Redis is used to process background jobs amongst other things.)
+1. On the command line run `heroku config:get AUTH_TOKEN`. The response is the secret token. **Every request made to the API must have the query parameter `auth_token=TOKEN` added to it. You'll receive a 403 error if you forget to do this.**
+
+### Installation elsewhere
+You can deploy this application anywhere you can run a Rack app. (Azure, Heroku, AWS, local, etc.)
+
+1. Download the repo `git clone https://github.com/substrakt/letsencrypt-heroku.git`
+1. Install Redis. (`brew install redis`)
+1. Install foreman (`gem install foreman`)
+1. Copy `.envsample` to `.env` using `cp .envsample .env`. The `.env` file is read when the application starts and should contain all of the required environment variables. One of these is the token generated earlier for Heroku. **DO NOT COMMIT THIS FILE TO SOURCE CONTROL**
+1. Run the application locally using `foreman start`.
+1. Deploy however you want to!
+
 ## Usage
-1. Run the application. Either do it yourself or deploy to Heroku for free.
-[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/substrakt/letsencrypt-heroku/tree/master)
 1. Hit the following endpoint:
 
 ```
