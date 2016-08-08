@@ -44,6 +44,7 @@ As we're currently in alpha, there are some severe limitations.
 You can install letsencrypt-heroku either directly on to Heroku *(recommended)* or download the code and deploy it yourself anywhere you can run a Rack app.
 
 First off, you'll need a Heroku auth token.
+
 1. `heroku plugins:install heroku-cli-oauth`
 1. `heroku authorizations:create -d "letsencrypt-heroku"`
 1. Save the token from this. We'll use it later.
