@@ -51,8 +51,8 @@ You can install letsencrypt-heroku either directly on to Heroku *(recommended)* 
 1. On the command line run `heroku config:get AUTH_TOKEN`. The response is the secret token. **Every request made to the API must have the query parameter `auth_token=TOKEN` added to it. You'll receive a 403 error if you forget to do this.**
 
 ### Installation elsewhere
-
 You can deploy this application anywhere you can run a Rack app. (Azure, Heroku, AWS, local, etc.)
+
 1. Download the repo `git clone https://github.com/substrakt/letsencrypt-heroku.git`
 1. Copy `.envsample` to `.env`. `cp .envsample .env`
 The `.env` file is read when the application starts and should contain all of the required environment variables. **DO NOT COMMIT THIS FILE TO SOURCE CONTROL**
