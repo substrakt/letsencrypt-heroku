@@ -70,7 +70,7 @@ class CertificateGeneration
 
 
     set_message('Done')
-    set_stats(:success)
+    set_status(:success)
   end
 
   private
