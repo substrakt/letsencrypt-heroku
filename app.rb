@@ -7,7 +7,7 @@ require_relative 'workers/worker'
 get '/certificate_generation/new/:domain' do
   authenticate!
   token = SecureRandom.hex
-  Worker.perform_async(params[:domain], params[:subdomains], params[:debug], params[:app_name], token)
+  Worker.perform_async(params[:domain], params[:subdomains], params[:debug], params[:app_name], token, params[:renew])
   content_type :json
 
   { status_path: "#{request.env['rack.url_scheme']}://#{request.env['HTTP_HOST']}/certificate_generation/#{token}" }.to_json

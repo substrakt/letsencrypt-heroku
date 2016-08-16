@@ -70,7 +70,7 @@ You can deploy this application anywhere you can run a Rack app. (Azure, Heroku,
 1. Hit the following endpoint:
 
 ```
-GET certificate_generation/new/{domain_name}?subdomains={subdomains}&debug={0/1}&app_name={heroku_app_name}&auth_token={auth_token}
+GET certificate_generation/new/{domain_name}?subdomains={subdomains}&debug={0/1}&app_name={heroku_app_name}&auth_token={auth_token}&renew={0/1}
 ```
 
 Parameters:
@@ -80,6 +80,7 @@ Parameters:
 * `debug` is `1` or `0` depending if this is a test or not. When debug is on, non-valid certificates are generated.
 * `heroku_app_name` is the name of the application on Heroku.
 * `auth_token` is the value of `ENV['AUTH_TOKEN']`.
+* `renew` is `1` or `0` depending if you want to queue up a renewal for 85 days from now.
 
 This will start the process in the background and output something like this:
 
