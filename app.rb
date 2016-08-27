@@ -1,5 +1,6 @@
 require 'sinatra'
 require 'dotenv'
+require 'sidekiq'
 Dotenv.load
 
 require_relative 'workers/worker'
@@ -16,14 +17,24 @@ end
 get '/certificate_generation/:token' do
   authenticate!
   content_type :json
-  $redis = Redis.new(url: ENV['REDIS_URL'])
+
+  pipe = Sidekiq.redis do |conn|
+    conn.pipelined do
+      conn.get("#{params[:token]}_status")
+      conn.get("#{params[:token]}_error")
+      conn.get("#{params[:token]}_domain")
+      conn.get("#{params[:token]}_subdomains")
+      conn.get("#{params[:token]}_message")
+    end
+  end
+
   {
-    token: params[:token],
-    status: $redis.get("#{params[:token]}_status"),
-    error: $redis.get("#{params[:token]}_error"),
-    domain: $redis.get("#{params[:token]}_domain"),
-    subdomains: $redis.get("#{params[:token]}_subdomains").split(','),
-    message: $redis.get("#{params[:token]}_message")
+    token:      params[:token],
+    status:     pipe[0],
+    error:      pipe[1],
+    domain:     pipe[2],
+    subdomains: pipe[3].to_s.split(','),
+    message:    pipe[4]
   }.to_json
 end
 
