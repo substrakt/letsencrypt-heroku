@@ -5,15 +5,13 @@ require 'resolv'
 require 'digest'
 require 'httparty'
 require_relative '../lib/challenge'
-require 'redis'
+require 'sidekiq'
 
 class CertificateGeneration
 
   HEROKU_BASE_URL = "https://api.heroku.com".freeze
 
   attr_reader :app_name, :debug, :subdomains, :domain, :token
-
-  $redis = Redis.new(url: ENV['REDIS_URL'])
 
   def initialize(domain, subdomains, debug, app_name, token)
     @app_name = app_name
@@ -27,10 +25,15 @@ class CertificateGeneration
 
   def provision!
     set_status(:starting)
-    $redis.set("#{redis_key}_app_name", @app_name)
-    $redis.set("#{redis_key}_domain", @domain)
-    $redis.set("#{redis_key}_subdomains", @subdomains)
-    $redis.set("#{redis_key}_debug", @debug)
+
+    Sidekiq.redis do |conn|
+      conn.pipelined do
+        conn.set("#{redis_key}_app_name", @app_name)
+        conn.set("#{redis_key}_domain", @domain)
+        conn.set("#{redis_key}_subdomains", @subdomains)
+        conn.set("#{redis_key}_debug", @debug)
+      end
+    end
 
     set_status(:in_progress)
     registration = @client.register(contact: "mailto:#{ENV['CONTACT_EMAIL']}")
@@ -101,16 +104,16 @@ class CertificateGeneration
   end
 
   def set_status(status)
-    $redis.set("#{redis_key}_status", status)
+    Sidekiq.redis { |conn| conn.set("#{redis_key}_status", status) }
   end
 
   def set_error(error)
     set_status(:failed)
-    $redis.set("#{redis_key}_error", error)
+    Sidekiq.redis { |conn| conn.set("#{redis_key}_error", error) }
   end
 
   def set_message(message)
-    $redis.set("#{redis_key}_message", message)
+    Sidekiq.redis { |conn| conn.set("#{redis_key}_message", message) }
   end
 
   def acme_client
