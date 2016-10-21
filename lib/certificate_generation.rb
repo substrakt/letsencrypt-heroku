@@ -121,7 +121,7 @@ class CertificateGeneration
   end
 
   def endpoint
-    @debug ? 'https://acme-staging.api.letsencrypt.org/' : 'https://acme-v01.api.letsencrypt.org/'
+    @debug.to_i == 1 ? 'https://acme-staging.api.letsencrypt.org/' : 'https://acme-v01.api.letsencrypt.org/'
   end
 
 end
