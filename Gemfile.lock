@@ -35,6 +35,8 @@ GEM
     rack (1.6.4)
     rack-protection (1.5.3)
       rack
+    rack-test (0.6.3)
+      rack (>= 1.0)
     rake (11.2.2)
     redis (3.3.1)
     securecompare (1.0.0)
@@ -62,7 +64,9 @@ DEPENDENCIES
   dotenv
   httparty
   json-jwt (= 1.5.2)
+  minitest
   puma
+  rack-test
   rake
   redis
   sidekiq
