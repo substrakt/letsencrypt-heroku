@@ -22,12 +22,11 @@ end
 get '/certificate_request/:token' do
   content_type :json
   authenticate!
-  if $redis.exists("token_#{params["token"]}")
-    status 200
-  else
-    status 404
-    { status: "#{params["token"]} not a valid token" }.to_json
+  if $redis.exists("status_#{params["token"]}")
+    return status 200
   end
+  status 404
+  { status: 'token1234 not a valid token' }.to_json
 end
 
 private
