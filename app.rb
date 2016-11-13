@@ -6,11 +6,18 @@ Dotenv.load
 require_relative 'workers/worker'
 
 post '/certificate_request' do
-  if params["domains"].present? && params["heroku_app_name"].present?
+  status 403 and return unless params['auth_token'] == ENV['AUTH_TOKEN']
+  if params_valid?
     status 200
   else
     status 422
   end
+end
+
+private
+
+def params_valid?
+  params["domains"].present? && params["heroku_app_name"].present? && params["zone"].present?
 end
 
 # get '/certificate_generation/new/:domain' do
