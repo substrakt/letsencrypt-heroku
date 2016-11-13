@@ -5,12 +5,28 @@ Dotenv.load
 
 require_relative 'workers/worker'
 
+$redis = Redis.new(url: ENV['REDIS_URL'])
+
 post '/certificate_request' do
-  status 403 and return unless params['auth_token'] == ENV['AUTH_TOKEN']
+  content_type :json
+  authenticate!
   if params_valid?
     status 200
+    token = SecureRandom.hex
+    { status: 'queued', uuid: token }.to_json
   else
     status 422
+  end
+end
+
+get '/certificate_request/:token' do
+  content_type :json
+  authenticate!
+  if $redis.exists("token_#{params["token"]}")
+    status 200
+  else
+    status 404
+    { status: "#{params["token"]} not a valid token" }.to_json
   end
 end
 
@@ -59,5 +75,4 @@ def authenticate!
   unless (params[:auth_token] == ENV['AUTH_TOKEN'])
     halt 403, 'Not authenticated'
   end
-
 end

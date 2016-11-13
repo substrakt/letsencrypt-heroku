@@ -25,6 +25,9 @@ class AppTest < MiniTest::Test
       auth_token: 'secrettoken'
     }
     post '/certificate_request', valid_params
+    assert_equal 'application/json', last_response.content_type
+    assert_equal 'queued', JSON.parse(last_response.body)["status"]
+    assert_match /\w{32}/, JSON.parse(last_response.body)["uuid"]
     assert last_response.ok?
   end
 
@@ -44,5 +47,27 @@ class AppTest < MiniTest::Test
     }
     post '/certificate_request', invalid_params
     assert last_response.unprocessable?
+  end
+
+  # def test_get_status_of_certificate_request_that_does_not_exist
+  #   params = {
+  #     auth_token: 'secrettoken'
+  #   }
+  #   get '/certificate_request/token1234', params
+  #   assert_equal({status: "token1234 not a valid token"}.to_json, last_response.body)
+  #   assert_equal 'application/json', last_response.content_type
+  #   assert last_response.not_found?
+  # end
+
+  def test_get_status_of_certificate_request_that_does_exist
+    $redis.set('token_token1234', 'pending')
+
+    params = {
+      auth_token: 'secrettoken'
+    }
+
+    get '/certificate_request/token1234', params
+    assert_equal 'application/json', last_response.content_type
+    assert_equal 200, last_response.status
   end
 end
