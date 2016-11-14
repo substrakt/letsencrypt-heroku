@@ -7,8 +7,35 @@ class AcmeClientRegistrationTest < MiniTest::Test
   end
 
   def test_create_an_instance
-    a = AcmeClientRegistrationTest.new
-    assert_equal AcmeClientRegistrationTest, a.class
+    a = AcmeClientRegistration.new
+    assert_equal AcmeClientRegistration, a.class
+  end
+
+  def test_use_the_staging_endpoint
+    a = AcmeClientRegistration.new(debug: true)
+    assert_equal 'https://acme-staging.api.letsencrypt.org/', a.endpoint
+  end
+
+  def test_use_the_live_endpoint
+    a = AcmeClientRegistration.new(debug: false)
+    assert_equal 'https://acme-v01.api.letsencrypt.org/', a.endpoint
+  end
+
+  def test_use_the_live_endpoint_by_default
+    a = AcmeClientRegistration.new
+    assert_equal 'https://acme-v01.api.letsencrypt.org/', a.endpoint
+  end
+
+  def test_assign_an_acme_client_with_live_endpoint
+    a = AcmeClientRegistration.new
+    assert_equal Acme::Client, a.client.class
+    assert_equal 'https://acme-v01.api.letsencrypt.org/', a.client.connection.url_prefix.to_s
+  end
+
+  def test_assign_an_acme_client_with_test_endpoint
+    a = AcmeClientRegistration.new(debug: true)
+    assert_equal Acme::Client, a.client.class
+    assert_equal 'https://acme-staging.api.letsencrypt.org/', a.client.connection.url_prefix.to_s
   end
 
 end
