@@ -1,0 +1,32 @@
+version: '2'
+services:
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+
+  sidekiq:
+    build: .
+    restart: always
+    env_file: .env
+    volumes:
+      - .:/opt/letsencrypt-heroku
+    command: 'bundle exec sidekiq -q default -r ./workers/base.rb -c 2'
+    working_dir: /opt/letsencrypt-heroku
+
+  web:
+    depends_on:
+      - redis
+    build: .
+    links:
+      - redis
+    restart: always
+    env_file: .env
+    volumes:
+      - .:/opt/letsencrypt-heroku
+    command: 'bundle exec puma -C config/puma.rb'
+    working_dir: /opt/letsencrypt-heroku
+    ports:
+      - '4567:4567'
+    environment:
+      PORT: 4567
