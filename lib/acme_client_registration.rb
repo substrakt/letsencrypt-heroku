@@ -1,11 +1,14 @@
 class AcmeClientRegistration
 
+  class NoEmailError < StandardError; end;
+
   DEBUG_ENDPOINT = "https://acme-staging.api.letsencrypt.org/"
   LIVE_ENDPOINT  = "https://acme-v01.api.letsencrypt.org/"
 
   attr_reader :endpoint, :client
 
   def initialize(options = {})
+    raise NoEmailError unless ENV['CONTACT_EMAIL'].present?
     if options[:debug]
       @endpoint = DEBUG_ENDPOINT
     else

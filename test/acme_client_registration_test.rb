@@ -2,6 +2,10 @@ require_relative 'test_helper'
 
 class AcmeClientRegistrationTest < MiniTest::Test
 
+  def setup
+    ENV['CONTACT_EMAIL'] = 'test@example.com'
+  end
+
   def teardown
     $redis.flushall
   end
@@ -36,6 +40,13 @@ class AcmeClientRegistrationTest < MiniTest::Test
     a = AcmeClientRegistration.new(debug: true)
     assert_equal Acme::Client, a.client.class
     assert_equal 'https://acme-staging.api.letsencrypt.org/', a.client.connection.url_prefix.to_s
+  end
+
+  def test_creating_without_CONTACT_EMAIL_set_should_raise_an_exception
+    ENV['CONTACT_EMAIL'] = nil
+    assert_raises AcmeClientRegistration::NoEmailError do
+      AcmeClientRegistration.new
+    end
   end
 
 end
