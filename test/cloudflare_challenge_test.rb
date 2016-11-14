@@ -30,4 +30,14 @@ class CloudflareChallengeTest < MiniTest::Test
     end
   end
 
+  def test_set_zone
+    a = CloudflareChallenge.new(zone: 'substrakt.com')
+    assert_equal 'substrakt.com', a.zone
+  end
+
+  def test_set_domains
+    a = CloudflareChallenge.new(zone: 'substrakt.com', domains: ['www.substrakt.com', 'substrakt.com'])
+    assert_equal ['www.substrakt.com', 'substrakt.com'], a.domains
+  end
+
 end
