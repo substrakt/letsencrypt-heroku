@@ -5,6 +5,7 @@ class CloudflareChallengeTest < MiniTest::Test
   def setup
     ENV['CLOUDFLARE_API_KEY'] = 'abcdefhuifsdjkfs'
     ENV['CLOUDFLARE_EMAIL']   = 'test@example.com'
+    ENV['CONTACT_EMAIL']      = 'test@example.com'
   end
 
   def teardown
@@ -38,6 +39,13 @@ class CloudflareChallengeTest < MiniTest::Test
   def test_set_domains
     a = CloudflareChallenge.new(zone: 'substrakt.com', domains: ['www.substrakt.com', 'substrakt.com'])
     assert_equal ['www.substrakt.com', 'substrakt.com'], a.domains
+  end
+
+  def test_add_challenge_records_to_cloudflare
+    a = CloudflareChallenge.new(zone: 'substrakt.com',
+                                domains: ['www.substrakt.com', 'substrakt.com'],
+                                client: AcmeClientRegistration.new(debug: true).client)
+    assert_equal true, a.create_challenge_records
   end
 
 end
