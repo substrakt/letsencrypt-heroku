@@ -49,4 +49,9 @@ class AcmeClientRegistrationTest < MiniTest::Test
     end
   end
 
+  def test_client_should_be_registered_and_agreed_to
+    a = AcmeClientRegistration.new
+    assert_equal true, a.client.nonces.any?
+  end
+
 end

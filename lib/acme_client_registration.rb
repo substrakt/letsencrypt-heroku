@@ -16,6 +16,8 @@ class AcmeClientRegistration
     end
 
     @client = Acme::Client.new(private_key: OpenSSL::PKey::RSA.new(4096), endpoint: @endpoint)
+    registration = @client.register(contact: "mailto:#{ENV['CONTACT_EMAIL']}")
+    registration.agree_terms
   end
 
 end
