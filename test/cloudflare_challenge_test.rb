@@ -13,8 +13,12 @@ class CloudflareChallengeTest < MiniTest::Test
   end
 
   def test_create_an_instance
-    a = CloudflareChallenge.new
-    assert_equal CloudflareChallenge, a.class
+    VCR.use_cassette('acme-new-authz') do
+      a = CloudflareChallenge.new(zone: 'substrakt.com',
+                                  domains: ['www.substrakt.com', 'substrakt.com'],
+                                  client: AcmeClientRegistration.new(debug: true).client)
+      assert_equal CloudflareChallenge, a.class
+    end
   end
 
   def test_raise_an_exception_if_CLOUDFLARE_API_KEY_is_missing
@@ -32,13 +36,21 @@ class CloudflareChallengeTest < MiniTest::Test
   end
 
   def test_set_zone
-    a = CloudflareChallenge.new(zone: 'substrakt.com')
-    assert_equal 'substrakt.com', a.zone
+    VCR.use_cassette('acme-new-authz') do
+      a = CloudflareChallenge.new(zone: 'substrakt.com',
+                                  domains: ['www.substrakt.com', 'substrakt.com'],
+                                  client: AcmeClientRegistration.new(debug: true).client)
+      assert_equal 'substrakt.com', a.zone
+    end
   end
 
   def test_set_domains
-    a = CloudflareChallenge.new(zone: 'substrakt.com', domains: ['www.substrakt.com', 'substrakt.com'])
-    assert_equal ['www.substrakt.com', 'substrakt.com'], a.domains
+    VCR.use_cassette('acme-new-authz') do
+      a = CloudflareChallenge.new(zone: 'substrakt.com',
+                                  domains: ['www.substrakt.com', 'substrakt.com'],
+                                  client: AcmeClientRegistration.new(debug: true).client)
+      assert_equal ['www.substrakt.com', 'substrakt.com'], a.domains
+    end
   end
 
   def test_add_challenge_records_to_cloudflare
@@ -47,6 +59,15 @@ class CloudflareChallengeTest < MiniTest::Test
                                   domains: ['www.substrakt.com', 'substrakt.com'],
                                   client: AcmeClientRegistration.new(debug: true).client)
       assert_equal ['www.substrakt.com', 'substrakt.com'], a.create_challenge_records
+    end
+  end
+
+  def test_get_list_of_challenges
+    VCR.use_cassette('acme-new-authz') do
+      a = CloudflareChallenge.new(zone: 'substrakt.com',
+                                  domains: ['www.substrakt.com', 'substrakt.com'],
+                                  client: AcmeClientRegistration.new(debug: true).client)
+      assert_equal Challenge, a.challenges.first.class
     end
   end
 
