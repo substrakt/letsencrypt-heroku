@@ -3,9 +3,9 @@ require_relative 'test_helper'
 class CloudflareChallengeTest < MiniTest::Test
 
   def setup
-    ENV['CLOUDFLARE_API_KEY'] = 'abcdefhuifsdjkfs'
-    ENV['CLOUDFLARE_EMAIL']   = 'test@example.com'
-    ENV['CONTACT_EMAIL']      = 'test@example.com'
+    ENV['CLOUDFLARE_API_KEY'] = 'testtoken'
+    ENV['CLOUDFLARE_EMAIL']   = 'max@substrakt.com'
+    ENV['CONTACT_EMAIL']      = 'max@substrakt.com'
   end
 
   def teardown
@@ -42,10 +42,12 @@ class CloudflareChallengeTest < MiniTest::Test
   end
 
   def test_add_challenge_records_to_cloudflare
-    a = CloudflareChallenge.new(zone: 'substrakt.com',
-                                domains: ['www.substrakt.com', 'substrakt.com'],
-                                client: AcmeClientRegistration.new(debug: true).client)
-    assert_equal true, a.create_challenge_records
+    VCR.use_cassette('acme-new-authz') do
+      a = CloudflareChallenge.new(zone: 'substrakt.com',
+                                  domains: ['www.substrakt.com', 'substrakt.com'],
+                                  client: AcmeClientRegistration.new(debug: true).client)
+      assert_equal ['www.substrakt.com', 'substrakt.com'], a.create_challenge_records
+    end
   end
 
 end
