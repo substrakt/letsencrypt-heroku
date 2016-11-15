@@ -11,47 +11,63 @@ class AcmeClientRegistrationTest < MiniTest::Test
   end
 
   def test_create_an_instance
-    a = AcmeClientRegistration.new
-    assert_equal AcmeClientRegistration, a.class
+    VCR.use_cassette('acme-new-reg') do
+      a = AcmeClientRegistration.new
+      assert_equal AcmeClientRegistration, a.class
+    end
   end
 
   def test_use_the_staging_endpoint
-    a = AcmeClientRegistration.new(debug: true)
-    assert_equal 'https://acme-staging.api.letsencrypt.org/', a.endpoint
+    VCR.use_cassette('acme-new-reg-debug') do
+      a = AcmeClientRegistration.new(debug: true)
+      assert_equal 'https://acme-staging.api.letsencrypt.org/', a.endpoint
+    end
   end
 
   def test_use_the_live_endpoint
-    a = AcmeClientRegistration.new(debug: false)
-    assert_equal 'https://acme-v01.api.letsencrypt.org/', a.endpoint
+    VCR.use_cassette('acme-new-reg') do
+      a = AcmeClientRegistration.new(debug: false)
+      assert_equal 'https://acme-v01.api.letsencrypt.org/', a.endpoint
+    end
   end
 
   def test_use_the_live_endpoint_by_default
-    a = AcmeClientRegistration.new
-    assert_equal 'https://acme-v01.api.letsencrypt.org/', a.endpoint
+    VCR.use_cassette('acme-new-reg') do
+      a = AcmeClientRegistration.new
+      assert_equal 'https://acme-v01.api.letsencrypt.org/', a.endpoint
+    end
   end
 
   def test_assign_an_acme_client_with_live_endpoint
-    a = AcmeClientRegistration.new
-    assert_equal Acme::Client, a.client.class
-    assert_equal 'https://acme-v01.api.letsencrypt.org/', a.client.connection.url_prefix.to_s
+    VCR.use_cassette('acme-new-reg') do
+      a = AcmeClientRegistration.new
+      assert_equal Acme::Client, a.client.class
+      assert_equal 'https://acme-v01.api.letsencrypt.org/', a.client.connection.url_prefix.to_s
+    end
   end
 
   def test_assign_an_acme_client_with_test_endpoint
-    a = AcmeClientRegistration.new(debug: true)
-    assert_equal Acme::Client, a.client.class
-    assert_equal 'https://acme-staging.api.letsencrypt.org/', a.client.connection.url_prefix.to_s
+    VCR.use_cassette('acme-new-reg-debug') do
+      a = AcmeClientRegistration.new(debug: true)
+      assert_equal Acme::Client, a.client.class
+      assert_equal 'https://acme-staging.api.letsencrypt.org/', a.client.connection.url_prefix.to_s
+    end
   end
 
   def test_creating_without_CONTACT_EMAIL_set_should_raise_an_exception
-    ENV['CONTACT_EMAIL'] = nil
-    assert_raises AcmeClientRegistration::NoEmailError do
-      AcmeClientRegistration.new
+    VCR.use_cassette('acme-new-reg') do
+      ENV['CONTACT_EMAIL'] = nil
+      assert_raises AcmeClientRegistration::NoEmailError do
+        AcmeClientRegistration.new
+      end
     end
   end
 
   def test_client_should_be_registered_and_agreed_to
-    a = AcmeClientRegistration.new
-    assert_equal true, a.client.nonces.any?
+    VCR.use_cassette('acme-new-reg') do
+      a = AcmeClientRegistration.new
+      assert_equal true, a.client.nonces.any?
+    end
   end
 
 end
