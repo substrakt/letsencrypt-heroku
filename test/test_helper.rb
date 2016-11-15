@@ -7,6 +7,7 @@ require_relative '../app'
 require_relative '../lib/acme_client_registration'
 require_relative '../lib/cloudflare_challenge'
 require_relative '../lib/challenge'
+require_relative '../lib/certificate_generator'
 
 
 VCR.configure do |config|

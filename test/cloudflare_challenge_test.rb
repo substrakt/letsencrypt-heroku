@@ -3,7 +3,7 @@ require_relative 'test_helper'
 class CloudflareChallengeTest < MiniTest::Test
 
   def setup
-    ENV['CLOUDFLARE_API_KEY'] = 'testtoken'
+    ENV['CLOUDFLARE_API_KEY'] = '547348956734789576'
     ENV['CLOUDFLARE_EMAIL']   = 'max@substrakt.com'
     ENV['CONTACT_EMAIL']      = 'max@substrakt.com'
   end
@@ -68,6 +68,15 @@ class CloudflareChallengeTest < MiniTest::Test
                                   domains: ['www.substrakt.com', 'substrakt.com'],
                                   client: AcmeClientRegistration.new(debug: true).client)
       assert_equal Challenge, a.challenges.first.class
+    end
+  end
+
+  def test_verification
+    VCR.use_cassette('acme-challenge-debug') do
+      a = CloudflareChallenge.new(zone: 'substrakt.com',
+                                  domains: ['max123.substrakt.com', 'max345.substrakt.com'],
+                                  client: AcmeClientRegistration.new(debug: true).client)
+      assert_equal true, a.verify
     end
   end
 

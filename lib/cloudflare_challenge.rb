@@ -25,8 +25,10 @@ class CloudflareChallenge
     @domains
   end
 
-  # def verify
-  #   challenge.request_verification
-  # end
+  def verify
+    @challenges.map do |challenge|
+      challenge.dns01.request_verification
+    end.uniq[0]
+  end
 
 end
