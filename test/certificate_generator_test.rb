@@ -2,6 +2,12 @@ require_relative 'test_helper'
 
 class CertificateGeneratorTest < MiniTest::Test
 
+  def setup
+    ENV['CLOUDFLARE_API_KEY'] = '547348956734789576'
+    ENV['CLOUDFLARE_EMAIL']   = 'max@substrakt.com'
+    ENV['CONTACT_EMAIL']      = 'max@substrakt.com'
+  end
+
   def teardown
     $redis.flushall
   end
