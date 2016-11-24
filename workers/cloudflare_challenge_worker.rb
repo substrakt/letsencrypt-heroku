@@ -24,7 +24,7 @@ class CloudflareChallengeWorker
     if a.verify
       puts "---> Successfully verified ownership"
     else
-      puts "!---> Failed to verify ownership."
+      puts "!---> Failed to verify ownership"
     end
   end
 end
