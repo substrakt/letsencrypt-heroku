@@ -1,4 +1,5 @@
 require 'sidekiq'
+require_relative '../lib/certificate_generator'
 require_relative '../lib/cloudflare_challenge'
 require_relative '../lib/acme_client_registration'
 
@@ -14,17 +15,15 @@ class CloudflareChallengeWorker
                             domains: domains,
                             token: token,
                             client: AcmeClientRegistration.new(debug: debug).client)
-    puts "---> Generating challenge TXT records"
-    a.create_challenge_records
-    puts "---> Sleeping for 60 seconds"
-    sleep(30)
-    puts "---> Half way there..."
-    sleep(30)
-    puts "---> Verifying domain ownership"
-    if a.verify
-      puts "---> Successfully verified ownership"
-    else
-      puts "!---> Failed to verify ownership"
+
+    begin
+      cert = CertificateGenerator.new(challenge: a).certificate
+      # Pass these in to the heroku app
+      private_key = cert.private_key
+      certificate_url = cert.url
+      # WOO!
+    rescue Exception => e
+      puts "Failed. Error given was #{e}"
     end
   end
 end
