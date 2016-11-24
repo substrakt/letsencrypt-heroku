@@ -1,3 +1,5 @@
+require 'acme-client'
+
 class AcmeClientRegistration
 
   class NoEmailError < StandardError; end;
@@ -8,7 +10,7 @@ class AcmeClientRegistration
   attr_reader :endpoint, :client
 
   def initialize(options = {})
-    raise NoEmailError unless ENV['CONTACT_EMAIL'].present?
+    raise NoEmailError if ENV['CONTACT_EMAIL'].empty?
     if options[:debug]
       @endpoint = DEBUG_ENDPOINT
     else

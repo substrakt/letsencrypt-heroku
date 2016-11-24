@@ -1,3 +1,6 @@
+require_relative 'challenge'
+require 'cloudflare'
+
 class CloudflareChallenge
 
   class NoCloudflareAPIKey < StandardError; end;

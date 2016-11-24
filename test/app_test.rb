@@ -13,7 +13,7 @@ class AppTest < MiniTest::Test
   end
 
   def teardown
-    $redis.flushall
+    $redis.flushdb
   end
 
   def test_certificate_request_post

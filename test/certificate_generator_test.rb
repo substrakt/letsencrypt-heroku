@@ -9,7 +9,7 @@ class CertificateGeneratorTest < MiniTest::Test
   end
 
   def teardown
-    $redis.flushall
+    $redis.flushdb
   end
 
   def test_generate_certificate

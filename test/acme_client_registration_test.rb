@@ -7,7 +7,7 @@ class AcmeClientRegistrationTest < MiniTest::Test
   end
 
   def teardown
-    $redis.flushall
+    $redis.flushdb
   end
 
   def test_create_an_instance

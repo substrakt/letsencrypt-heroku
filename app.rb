@@ -3,9 +3,14 @@ require 'dotenv'
 require 'sidekiq'
 Dotenv.load
 
-require_relative 'workers/worker'
+require_relative 'workers/cloudflare_challenge_worker'
 
 $redis = Redis.new(url: ENV['REDIS_URL'])
+
+before do
+  request.body.rewind
+  @request_payload = JSON.parse request.body.read
+end
 
 post '/certificate_request' do
   content_type :json
@@ -13,6 +18,7 @@ post '/certificate_request' do
   if params_valid?
     status 200
     token = SecureRandom.hex
+    CloudflareChallengeWorker.perform_async(@request_payload["zone"], @request_payload["domains"], token, true)
     { status: 'queued', uuid: token }.to_json
   else
     status 422
@@ -32,7 +38,7 @@ end
 private
 
 def params_valid?
-  params["domains"].present? && params["heroku_app_name"].present? && params["zone"].present?
+  !@request_payload["domains"].empty? && !@request_payload["heroku_app_name"].empty? && !@request_payload["zone"].empty?
 end
 
 # get '/certificate_generation/new/:domain' do
@@ -71,7 +77,7 @@ end
 private
 
 def authenticate!
-  unless (params[:auth_token] == ENV['AUTH_TOKEN'])
-    halt 403, 'Not authenticated'
+  unless (@request_payload["auth_token"] == ENV['AUTH_TOKEN'])
+    halt 403
   end
 end
