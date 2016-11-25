@@ -8,7 +8,7 @@ class CertificateGenerator
     puts "[#{@challenge.domains} in #{@challenge.zone}] ---> Creating challenge records"
     @challenge.create_challenge_records
     puts "[#{@challenge.domains} in #{@challenge.zone}] ---> Sleeping for 60 seconds."
-    sleep(60) unless ENV['ENVIRONMENT'] == 'test'
+    # sleep(60) unless ENV['ENVIRONMENT'] == 'test'
     @challenge.verify
 
     @csr = Acme::Client::CertificateRequest.new(names: @challenge.domains)

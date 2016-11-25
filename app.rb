@@ -38,7 +38,7 @@ end
 private
 
 def params_valid?
-  !@request_payload["domains"].empty? && !@request_payload["heroku_app_name"].empty? && !@request_payload["zone"].empty?
+  @request_payload["domains"].present? && @request_payload["heroku_app_name"].present? && @request_payload["zone"].present?
 end
 
 # get '/certificate_generation/new/:domain' do
@@ -77,7 +77,7 @@ end
 private
 
 def authenticate!
-  unless (@request_payload["auth_token"] == ENV['AUTH_TOKEN'])
+  unless (@request_payload["auth_token"] == ENV['AUTH_TOKEN']) || (params["auth_token"] == ENV['AUTH_TOKEN'])
     halt 403
   end
 end
