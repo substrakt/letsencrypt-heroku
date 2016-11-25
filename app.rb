@@ -18,7 +18,7 @@ post '/certificate_request' do
   if params_valid?
     status 200
     token = SecureRandom.hex
-    CloudflareChallengeWorker.perform_async(@request_payload["zone"], @request_payload["domains"], token, true)
+    CloudflareChallengeWorker.perform_async(@request_payload["zone"], @request_payload["domains"], token, @request_payload["heroku_app_name"], true)
     { status: 'queued', uuid: token }.to_json
   else
     status 422

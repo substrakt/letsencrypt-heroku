@@ -2,13 +2,14 @@ require 'sidekiq'
 require_relative '../lib/certificate_generator'
 require_relative '../lib/cloudflare_challenge'
 require_relative '../lib/acme_client_registration'
+require_relative '../lib/provisioners/heroku'
 
 class CloudflareChallengeWorker
   include Sidekiq::Worker
 
   sidekiq_options :retry => false
 
-  def perform(zone, domains, token, debug = true)
+  def perform(zone, domains, token, app_name, debug = true)
     puts "---> Starting challenge creation on zone: #{zone}, with domains: #{domains}."
     puts "---> Debug is #{debug ? 'ON' : 'OFF'}"
     a = CloudflareChallenge.new(zone: zone,
@@ -18,10 +19,8 @@ class CloudflareChallengeWorker
 
     begin
       cert = CertificateGenerator.new(challenge: a).certificate
-      # Pass these in to the heroku app
-      private_key = cert.private_key
-      certificate_url = cert.url
-      # WOO!
+      puts '---> Generated certificate'
+      Provisioner::Heroku.new(app_name: app_name, certificate: cert).provision!
     rescue Exception => e
       puts "Failed. Error given was #{e}"
     end
