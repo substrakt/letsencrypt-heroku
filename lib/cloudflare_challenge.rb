@@ -6,7 +6,7 @@ class CloudflareChallenge
   class NoCloudflareAPIKey < StandardError; end;
   class NoCloudflareEmail < StandardError; end;
 
-  attr_reader :zone, :domains, :client, :challenges
+  attr_reader :zone, :domains, :client, :challenges, :token
 
   def initialize(options = {})
     raise NoCloudflareAPIKey if ENV['CLOUDFLARE_API_KEY'].blank?
@@ -15,6 +15,7 @@ class CloudflareChallenge
     @zone    = options[:zone]
     @domains = options[:domains]
     @client  = options[:client]
+    @token   = options[:token]
     @challenges = @domains.map do |domain|
       Challenge.new(client: @client, domain: domain)
     end

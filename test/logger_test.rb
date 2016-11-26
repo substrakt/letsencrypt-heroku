@@ -14,14 +14,24 @@ class LoggerTest < MiniTest::Test
     assert_equal "----> This is a test message", Logger.log('This is a test message')
   end
 
-  def test_log_with_request
+  def test_log_with_generator
     VCR.use_cassette('new-certificate-debug') do
       a = CertificateGenerator.new(challenge: CloudflareChallenge.new(zone: 'substrakt.com',
                                                                       domains: ['www.substrakt.com', 'substrakt.com'],
                                                                       client: AcmeClientRegistration.new(debug: true).client))
       assert_equal "[Zone: substrakt.com - Domains: www.substrakt.com, substrakt.com] ----> This is a test message", Logger.log('This is a test message', generator: a)
     end
+  end
 
+  def test_a_log_with_generator_should_also_write_to_redis
+    VCR.use_cassette('new-certificate-debug') do
+      a = CertificateGenerator.new(challenge: CloudflareChallenge.new(zone: 'substrakt.com',
+                                                                      token: 'testingtesting',
+                                                                      domains: ['www.substrakt.com', 'substrakt.com'],
+                                                                      client: AcmeClientRegistration.new(debug: true).client))
+      Logger.log('Test message', generator: a)
+      assert_equal "Test message", $redis.get("testingtesting_latest")
+    end
   end
 
 end
