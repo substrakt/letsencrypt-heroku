@@ -1,3 +1,5 @@
+require 'logger'
+
 class CertificateGenerator
 
   attr_reader :csr, :challenge, :certificate
@@ -5,10 +7,10 @@ class CertificateGenerator
   def initialize(options = {})
     @challenge = options[:challenge]
 
-    puts "[#{@challenge.domains} in #{@challenge.zone}] ---> Creating challenge records"
+    Logger.log('Creating challenge records', generator: self)
     @challenge.create_challenge_records
-    puts "[#{@challenge.domains} in #{@challenge.zone}] ---> Sleeping for 60 seconds."
-    # sleep(60) unless ENV['ENVIRONMENT'] == 'test'
+    Logger.log('Sleeping for 60 seconds', generator: self)
+    sleep(60) unless ENV['ENVIRONMENT'] == 'test'
     @challenge.verify
 
     @csr = Acme::Client::CertificateRequest.new(names: @challenge.domains)

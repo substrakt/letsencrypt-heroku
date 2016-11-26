@@ -9,6 +9,7 @@ require_relative '../lib/cloudflare_challenge'
 require_relative '../lib/challenge'
 require_relative '../lib/certificate_generator'
 require_relative '../lib/provisioners/heroku'
+require_relative '../lib/logger'
 
 
 VCR.configure do |config|
