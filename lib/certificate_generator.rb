@@ -1,4 +1,4 @@
-require 'logger'
+require_relative 'logger'
 
 class CertificateGenerator
 

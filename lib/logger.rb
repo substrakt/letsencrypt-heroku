@@ -1,6 +1,7 @@
 class Logger
 
   def self.log(message, options = {})
+    $redis = Redis.new(url: ENV['REDIS_URL'])
     output = ''
     if options[:generator].present?
       output << "[Zone: #{options[:generator].challenge.zone}"
