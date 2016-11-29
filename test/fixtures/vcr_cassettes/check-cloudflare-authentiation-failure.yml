@@ -1,0 +1,55 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.cloudflare.com/client/v4/user
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Auth-Email:
+      - max@substrakt.com
+      X-Auth-Key:
+      - this-is-not-a-real-tokenb
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Date:
+      - Tue, 29 Nov 2016 15:08:13 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=dc09026808ef50bffd20ee15ce87df3181480432093; expires=Wed, 29-Nov-17
+        15:08:13 GMT; path=/; domain=.cloudflare.com; HttpOnly
+      Expires:
+      - Sun, 25 Jan 1981 05:00:00 GMT
+      Cache-Control:
+      - no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+      Pragma:
+      - no-cache
+      Strict-Transport-Security:
+      - max-age=31536000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 3096f94a7ab53578-LHR
+    body:
+      encoding: UTF-8
+      string: '{"success":false,"errors":[{"code":6003,"message":"Invalid request
+        headers","error_chain":[{"code":6103,"message":"Invalid format for X-Auth-Key
+        header"}]}],"messages":[],"result":null}'
+    http_version: 
+  recorded_at: Tue, 29 Nov 2016 15:08:14 GMT
+recorded_with: VCR 3.0.3

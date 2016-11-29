@@ -1,0 +1,46 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.heroku.com/apps
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/vnd.heroku+json; version=3
+      Authorization:
+      - Bearer this-is-not-a-real-token
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 401
+      message: Unauthorized
+    headers:
+      Cache-Control:
+      - private, no-cache
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 29 Nov 2016 14:59:27 GMT
+      Request-Id:
+      - 8159efa5-26dd-430c-6683-39993c6e3deb,9f74e1df-8d85-3cba-8187-2403d1b38964
+      Vary:
+      - Accept-Encoding
+      Via:
+      - 1.1 spaces-router (+291255b)
+      X-Content-Type-Options:
+      - nosniff
+      X-Runtime:
+      - '0.022004634'
+      Content-Length:
+      - '63'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"id":"unauthorized","message":"Invalid credentials provided."}'
+    http_version: 
+  recorded_at: Tue, 29 Nov 2016 14:59:27 GMT
+recorded_with: VCR 3.0.3

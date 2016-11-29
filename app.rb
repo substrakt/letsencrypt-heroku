@@ -4,6 +4,7 @@ require 'sidekiq'
 Dotenv.load
 
 require_relative 'workers/cloudflare_challenge_worker'
+require_relative 'lib/preflight_check'
 
 $redis = Redis.new(url: ENV['REDIS_URL'])
 
@@ -16,6 +17,7 @@ post '/certificate_request' do
   content_type :json
   authenticate!
   if params_valid?
+    perform_preflight_check
     status 200
     token = SecureRandom.hex
     CloudflareChallengeWorker.perform_async(@request_payload["zone"], @request_payload["domains"], token, @request_payload["heroku_app_name"], true)
@@ -79,5 +81,13 @@ private
 def authenticate!
   unless (@request_payload["auth_token"] == ENV['AUTH_TOKEN']) || (params["auth_token"] == ENV['AUTH_TOKEN'])
     halt 403
+  end
+end
+
+def perform_preflight_check
+  check = PreflightCheck.new(heroku_token: ENV['HEROKU_OAUTH_KEY'], cloudflare_token: ENV['CLOUDFLARE_API_KEY'], cloudflare_email: ENV['CLOUDFLARE_EMAIL'])
+
+  if check.check_cloudflare == false || check.check_heroku == false
+    halt 422, "Could not connect to Heroku or Cloudflare."
   end
 end

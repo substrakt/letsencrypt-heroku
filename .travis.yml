@@ -2,3 +2,6 @@ language: ruby
 rvm:
   - 2.3.1
   - 2.3.0
+
+script:
+  - docker-compose run --rm web rake
