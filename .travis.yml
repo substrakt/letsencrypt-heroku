@@ -2,5 +2,8 @@ sudo: required
 services:
   - docker
 
+rvm:
+  - 2.3.3
+
 script:
   - docker-compose run --rm web rake
