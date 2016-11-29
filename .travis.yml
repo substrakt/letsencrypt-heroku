@@ -1,8 +1,13 @@
-language: ruby
-rvm:
-  - 2.3.3
+sudo: required
+services:
+  - docker
 
+env:
+  COMPOSE_VERSION: 1.8.1
+
+before_install:
+ - curl -L https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+ - chmod +x docker-compose
+ - sudo mv docker-compose /usr/local/bin
 script:
-  - curl -L "https://github.com/docker/compose/releases/download/1.8.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-  - chmod +x /usr/local/bin/docker-compose
   - docker-compose run --rm web rake
