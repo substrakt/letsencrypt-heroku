@@ -57,7 +57,7 @@ class AppTest < MiniTest::Test
     params = {
       auth_token: 'secrettoken'
     }
-    get '/certificate_request/token1234', params.to_json
+    get '/certificate_request/token1234', params
     assert_equal "token1234 not a valid token", JSON.parse(last_response.body)["status"]
     assert_equal 'application/json', last_response.content_type
     assert last_response.not_found?

@@ -10,17 +10,19 @@ $redis = Redis.new(url: ENV['REDIS_URL'])
 
 before do
   request.body.rewind
-  @request_payload = JSON.parse request.body.read
+  if request.body.size > 0
+    @request_payload = JSON.parse(request.body.read)
+  end
 end
 
 post '/certificate_request' do
   content_type :json
   authenticate!
   if params_valid?
-    perform_preflight_check
+    perform_preflight_check unless ENV['ENVIRONMENT'] == 'test'
     status 200
     token = SecureRandom.hex
-    CloudflareChallengeWorker.perform_async(@request_payload["zone"], @request_payload["domains"], token, @request_payload["heroku_app_name"])
+    CloudflareChallengeWorker.perform_async(@request_payload["zone"], @request_payload["domains"], token, @request_payload["heroku_app_name"], false)
     { status: 'queued', uuid: token }.to_json
   else
     status 422
@@ -43,43 +45,10 @@ def params_valid?
   @request_payload["domains"].present? && @request_payload["heroku_app_name"].present? && @request_payload["zone"].present?
 end
 
-# get '/certificate_generation/new/:domain' do
-#   authenticate!
-#   token = SecureRandom.hex
-#   Worker.perform_async(params[:domain], params[:subdomains], params[:debug], params[:app_name], token)
-#   content_type :json
-#
-#   { status_path: "#{request.env['rack.url_scheme']}://#{request.env['HTTP_HOST']}/certificate_generation/#{token}" }.to_json
-# end
-#
-# get '/certificate_generation/:token' do
-#   authenticate!
-#   content_type :json
-#
-#   pipe = Sidekiq.redis do |conn|
-#     conn.pipelined do
-#       conn.get("#{params[:token]}_status")
-#       conn.get("#{params[:token]}_error")
-#       conn.get("#{params[:token]}_domain")
-#       conn.get("#{params[:token]}_subdomains")
-#       conn.get("#{params[:token]}_message")
-#     end
-#   end
-#
-#   {
-#     token:      params[:token],
-#     status:     pipe[0],
-#     error:      pipe[1],
-#     domain:     pipe[2],
-#     subdomains: pipe[3].to_s.split(','),
-#     message:    pipe[4]
-#   }.to_json
-# end
-
 private
 
 def authenticate!
-  unless (@request_payload["auth_token"] == ENV['AUTH_TOKEN']) || (params["auth_token"] == ENV['AUTH_TOKEN'])
+  unless (params["auth_token"] == ENV['AUTH_TOKEN']) || (@request_payload["auth_token"] == ENV['AUTH_TOKEN'])
     halt 403
   end
 end

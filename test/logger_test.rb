@@ -4,6 +4,8 @@ class LoggerTest < MiniTest::Test
 
   def setup
     ENV['ENVIRONMENT'] = 'test'
+    ENV['CLOUDFLARE_API_KEY'] = 'fjsdjfghsdjfhgsd'
+    ENV['CLOUDFLARE_EMAIL'] = 'max@substrakt.com'
   end
 
   def teardown

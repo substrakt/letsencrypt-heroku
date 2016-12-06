@@ -10,13 +10,13 @@ class CloudflareChallengeWorker
 
   sidekiq_options :retry => false
 
-  def perform(zone, domains, token, app_name)
+  def perform(zone, domains, token, app_name, debug = true)
     Logger.log("Starting challenge creation on zone: #{zone}, with domains: #{domains}.")
     Logger.log("Debug is #{debug ? 'ON' : 'OFF'}")
     a = CloudflareChallenge.new(zone: zone,
                             domains: domains,
                             token: token,
-                            client: AcmeClientRegistration.new(debug: false).client)
+                            client: AcmeClientRegistration.new(debug: debug).client)
 
     begin
       generator = CertificateGenerator.new(challenge: a)
