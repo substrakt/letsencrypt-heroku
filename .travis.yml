@@ -6,4 +6,5 @@ rvm:
   - 2.3.3
 
 script:
+  - cp .env.sample .env
   - docker-compose run --rm web rake
