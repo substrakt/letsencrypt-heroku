@@ -32,7 +32,7 @@ class LoggerTest < MiniTest::Test
                                                                       domains: ['www.substrakt.com', 'substrakt.com'],
                                                                       client: AcmeClientRegistration.new(debug: true).client))
       Logger.log('Test message', generator: a)
-      assert_equal "Test message", $redis.get("testingtesting_latest")
+      assert_equal "Test message", $redis.get("latest_testingtesting")
     end
   end
 
