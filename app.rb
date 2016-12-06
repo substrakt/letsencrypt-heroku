@@ -22,8 +22,9 @@ post '/certificate_request' do
     perform_preflight_check unless ENV['ENVIRONMENT'] == 'test'
     status 200
     token = SecureRandom.hex
+    $redis.setex("status_#{token}", 3600, "queued")
     CloudflareChallengeWorker.perform_async(@request_payload["zone"], @request_payload["domains"], token, @request_payload["heroku_app_name"], false)
-    { status: 'queued', uuid: token }.to_json
+    { status: 'queued', uuid: token, url: "#{request.env['rack.url_scheme']}://#{request.env['HTTP_HOST']}/certificate_request/#{token}?auth_token=#{ENV['AUTH_TOKEN']}" }.to_json
   else
     status 422
   end
@@ -33,10 +34,11 @@ get '/certificate_request/:token' do
   content_type :json
   authenticate!
   if $redis.exists("status_#{params["token"]}")
-    return status 200
+    status 200
+    return { status: $redis.get("status_#{params["token"]}"), message: $redis.get("latest_#{params["token"]}")}.to_json
   end
   status 404
-  { status: 'token1234 not a valid token' }.to_json
+  { status: "#{params["token"]} not a valid token" }.to_json
 end
 
 private

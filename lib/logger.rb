@@ -6,7 +6,7 @@ class Logger
     if options[:generator].present?
       output << "[Zone: #{options[:generator].challenge.zone}"
       output << " - Domains: #{options[:generator].challenge.domains.join(", ")}] "
-      $redis.set("#{options[:generator].challenge.token}_latest", message)
+      $redis.set("latest_#{options[:generator].challenge.token}", message)
     end
     output << "----> #{message}"
 

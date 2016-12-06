@@ -11,6 +11,8 @@ class CloudflareChallengeWorker
   sidekiq_options :retry => false
 
   def perform(zone, domains, token, app_name, debug = true)
+    $redis = Redis.new(url: ENV['REDIS_URL'])
+    $redis.setex("status_#{token}", 3600, "started")
     Logger.log("Starting challenge creation on zone: #{zone}, with domains: #{domains}.")
     Logger.log("Debug is #{debug ? 'ON' : 'OFF'}")
     a = CloudflareChallenge.new(zone: zone,
@@ -23,8 +25,11 @@ class CloudflareChallengeWorker
       cert = generator.certificate
       Logger.log("Generated certificate", generator: generator)
       Provisioner::Heroku.new(app_name: app_name, certificate: cert).provision!
+      $redis.setex("status_#{token}", 3600, "finished")
     rescue Exception => e
       Logger.log("Failed. Error given was #{e}")
+      $redis.setex("status_#{token}", 3600, "error")
+      $redis.setex("latest_#{token}", 3600, e)
     end
   end
 end
