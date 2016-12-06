@@ -15,7 +15,6 @@ class CloudflareChallengeWorker
     $redis.setex("status_#{token}", 3600, "started")
     Logger.log("Starting challenge creation on zone: #{zone}, with domains: #{domains}.")
     Logger.log("Debug is #{debug ? 'ON' : 'OFF'}")
-    puts cloudflare["email"]
     a = CloudflareChallenge.new(zone: zone,
                             domains: domains,
                             token: token,
