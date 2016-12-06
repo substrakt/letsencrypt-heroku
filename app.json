@@ -8,12 +8,6 @@
   "website": "https://substrakt.com/",
   "repository": "https://github.com/substrakt/letsencrypt-heroku",
   "env": {
-    "CLOUDFLARE_API_KEY": {
-      "description": "Your CloudFlare API Key."
-    },
-    "CLOUDFLARE_EMAIL": {
-      "description": "The email address for your CloudFlare account."
-    },
     "HEROKU_OAUTH_KEY": {
       "description": "A valid OAuth key to access your Heroku appications."
     },

@@ -6,11 +6,14 @@ class CloudflareChallenge
   class NoCloudflareAPIKey < StandardError; end;
   class NoCloudflareEmail < StandardError; end;
 
-  attr_reader :zone, :domains, :client, :challenges, :token
+  attr_reader :zone, :domains, :client, :challenges, :token, :email, :api_key
 
   def initialize(options = {})
-    raise NoCloudflareAPIKey if ENV['CLOUDFLARE_API_KEY'].blank?
-    raise NoCloudflareEmail  if ENV['CLOUDFLARE_EMAIL'].blank?
+    @email   = options[:email] || ENV['CLOUDFLARE_EMAIL']
+    @api_key = options[:api_key] || ENV['CLOUDFLARE_API_KEY']
+
+    raise NoCloudflareAPIKey if @api_key.blank?
+    raise NoCloudflareEmail  if @email.blank?
 
     @zone    = options[:zone]
     @domains = options[:domains]
@@ -22,7 +25,7 @@ class CloudflareChallenge
   end
 
   def create_challenge_records
-    cf = CloudFlare::connection(ENV['CLOUDFLARE_API_KEY'], ENV['CLOUDFLARE_EMAIL'])
+    cf = CloudFlare::connection(@api_key, @email)
     @challenges.each do |challenge|
       cf.rec_new(@zone, 'TXT', "_acme-challenge.#{challenge.domain}", challenge.dns01.record_content, 1)
     end

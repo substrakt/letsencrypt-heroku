@@ -21,6 +21,20 @@ class CloudflareChallengeTest < MiniTest::Test
     end
   end
 
+  def test_create_an_instance_with_custom_auth
+    ENV['CLOUDFLARE_EMAIL']   = nil
+    ENV['CLOUDFLARE_API_KEY'] = nil
+    VCR.use_cassette('acme-new-authz') do
+      a = CloudflareChallenge.new(zone: 'substrakt.com',
+                                  domains: ['www.substrakt.com', 'substrakt.com'],
+                                  api_key: 'fdhsufgdjshfgsd',
+                                  email: 'max@substrakt.com',
+                                  client: AcmeClientRegistration.new(debug: true).client)
+      assert_equal 'max@substrakt.com', a.email
+      assert_equal 'fdhsufgdjshfgsd', a.api_key
+    end
+  end
+
   def test_raise_an_exception_if_CLOUDFLARE_API_KEY_is_missing
     ENV['CLOUDFLARE_API_KEY'] = nil
     assert_raises CloudflareChallenge::NoCloudflareAPIKey do

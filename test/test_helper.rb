@@ -1,4 +1,5 @@
 ENV['RACK_ENV'] = 'test'
+ENV['ENVIRONMENT'] = 'test'
 require 'minitest/autorun'
 require 'rack/test'
 require 'vcr'
