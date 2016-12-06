@@ -1,0 +1,53 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.cloudflare.com/client/v4/user
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Auth-Email:
+      - max@substrakt.com
+      X-Auth-Key:
+      - 856a0658ade46696ec3e165827d728382f989
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 29 Nov 2016 15:07:22 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d25906969eb0578ee329ca8ed02669d3f1480432042; expires=Wed, 29-Nov-17
+        15:07:22 GMT; path=/; domain=.cloudflare.com; HttpOnly
+      Expires:
+      - Sun, 25 Jan 1981 05:00:00 GMT
+      Cache-Control:
+      - no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+      Pragma:
+      - no-cache
+      Strict-Transport-Security:
+      - max-age=31536000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 3096f8078c5a35b4-LHR
+    body:
+      encoding: UTF-8
+      string: '{"result":{"id":"ed0c2e827e608a93b65c429e503f5374","email":"max@substrakt.com","username":"1d1ea72d0ec1888c9c3dc35dd9ffa4ee","first_name":null,"last_name":null,"telephone":null,"country":null,"zipcode":null,"two_factor_authentication_enabled":false,"two_factor_authentication_locked":false,"created_on":"2016-02-11T15:28:34.019505Z","modified_on":"2016-09-06T12:46:08.721952Z","organizations":null,"has_pro_zones":false,"has_business_zones":false,"has_enterprise_zones":false},"success":true,"errors":[],"messages":[]}'
+    http_version: 
+  recorded_at: Tue, 29 Nov 2016 15:07:22 GMT
+recorded_with: VCR 3.0.3

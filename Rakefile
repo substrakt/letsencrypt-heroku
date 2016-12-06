@@ -1,3 +1,4 @@
-task :default do
-  puts 'No default rake task set :('
+task :default => :test
+task :test do
+  Dir.glob('./test/*_test.rb').each { |file| require file}
 end

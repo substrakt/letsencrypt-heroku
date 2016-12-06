@@ -1,0 +1,62 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.heroku.com/apps
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/vnd.heroku+json; version=3
+      Authorization:
+      - Bearer 3c3b9d66-015a-4c91-bda2-14c79c88fb15
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Accept-Ranges:
+      - id, name, updated_at
+      Cache-Control:
+      - private, no-cache
+      Content-Range:
+      - name app-1..app-2
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 29 Nov 2016 14:57:34 GMT
+      Etag:
+      - '"929997e75d2782be47676c465897379e"'
+      Last-Modified:
+      - Tue, 29 Nov 2016 12:13:44 GMT
+      Oauth-Scope:
+      - global
+      Oauth-Scope-Accepted:
+      - global read read-protected write write-protected
+      Ratelimit-Multiplier:
+      - '1'
+      Ratelimit-Remaining:
+      - '4499'
+      Request-Id:
+      - 2e26469f-95f7-44b5-5b22-3d7503210e58,45780389-1416-e76c-c25d-9438fe7b587e
+      Vary:
+      - Accept-Encoding
+      Via:
+      - 1.1 spaces-router (+291255b)
+      X-Content-Type-Options:
+      - nosniff
+      X-Runtime:
+      - '0.1298948'
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: 'REDACTED'
+    http_version:
+  recorded_at: Tue, 29 Nov 2016 14:57:35 GMT
+recorded_with: VCR 3.0.3

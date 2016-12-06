@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.3.1'
+ruby '2.3.3'
 
 gem 'sinatra'
 gem 'json-jwt', '1.5.2'
@@ -12,3 +12,7 @@ gem 'dotenv'
 gem 'sidekiq'
 gem 'redis'
 gem 'rake'
+gem 'minitest'
+gem 'rack-test'
+gem 'vcr'
+gem 'webmock'

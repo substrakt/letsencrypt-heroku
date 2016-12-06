@@ -9,39 +9,20 @@ With the advent of free SSL and Heroku finally offering free SSL endpoints, it's
 
 We wrote a blog post about it [here](https://substrakt.com/heroku-ssl-me-weve-come-a-long-way/)
 
-**This is alpha software. It may work, or it may not. We use it in production at [Substrakt](https://substrakt.com) but your milage may vary until 1.0.**
-
 [![Substrakt Logo](http://birmingham-made-me.org/wp-content/uploads/2014/03/substrakt-logo-300x55.png)](https://substrakt.com/)
 
 Created by [Substrakt](https://substrakt.com).
 
 ## What it does
-1. Generates a private key.
-1. Validates domain ownership using DNS verification for a set of domains including the root. **(Only works with CloudFlare currently!)**
-1. Generates a CSR.
-1. Generates a LetsEncrypt certificate.
-1. Enables the http-sni feature on a specified Heroku application.
-1. Adds or updates the certificate with the newly generated one.
-
-## How it works
-1. User or robot makes an API request to this application.
-1. Magic happens.
-1. Site is secure.
+1. Provides an API to generate SSL certificates.
+1. Generates SSL certificates using DNS records to validate ownership.
 
 ## Limitations
-As we're currently in alpha, there are some severe limitations.
-
-1. Heroku apps must be in the common runtime. `http-sni` is not supported in private spaces, yet. This shouldn't be a problem for 99% of applications.
 1. DNS must be managed by CloudFlare.
-1. Renewals do not happen automatically. (Not sure if this is in the scope of this application or whether or not the application itself should handle renewals?)
-1. We're using an unreleased Heroku API endpoint and `http-sni` is beta. If it changes or is removed, this application will simply cease to work.
-1. It doesn't currently add the CNAME records to CloudFlare once the SSL certificate has been generated. (Possibly out of scope?)
-1. It's a bit slow (around 1min per validated subdomain) due to the nature of DNS resolution. Not sure how to resolve this yet.
-1. It does not force the secured application to only accept requests via SSL. This is because we use a variety of frameworks so we must remain framework agnostic.
 
 ## Installation
 
-You can install letsencrypt-heroku either directly on to Heroku *(recommended)* or download the code and deploy it yourself anywhere you can run a Rack app.
+You can install letsencrypt-heroku either directly on to Heroku, use Docker Compose or download the code and deploy it yourself anywhere you can run a Rack app.
 
 First off, you'll need a Heroku auth token.
 
@@ -55,6 +36,10 @@ First off, you'll need a Heroku auth token.
 1. Input all the required parameters as asked for by the Heroku setup wizard. This includes the heroku token from above.
 1. This will set up the application and all dependencies automatically including a free instance of Heroku Redis. (Redis is used to process background jobs amongst other things.)
 1. On the command line run `heroku config:get AUTH_TOKEN`. The response is the secret token. **Every request made to the API must have the query parameter `auth_token=TOKEN` added to it. You'll receive a 403 error if you forget to do this.**
+
+### Run using Docker Compose
+
+This application comes with a `docker-compose.yml` file. Assuming you have Docker installed, you can run `docker-compose up` and you'll be up and running immediately.
 
 ### Installation elsewhere
 You can deploy this application anywhere you can run a Rack app. (Azure, Heroku, AWS, local, etc.)
@@ -70,22 +55,24 @@ You can deploy this application anywhere you can run a Rack app. (Azure, Heroku,
 1. Hit the following endpoint:
 
 ```
-GET certificate_generation/new/{domain_name}?subdomains={subdomains}&debug={0/1}&app_name={heroku_app_name}&auth_token={auth_token}
+POST /certificate_request
+
+{
+	"auth_token": "CHOSEN AUTH TOKEN",
+	"domains": ["www.substrakt.com", "substrakt.com"],
+	"zone": "CLOUDFLARE DOMAIN ZONE",
+	"heroku_app_name": "NAME OF HEROKU APP"
+}
 ```
 
-Parameters:
-
-* `domain_name` is the domain name without subdomains. (e.g. `google.com` == Good. `www.google.com` == Bad.)
-* `subdomains` is a comma delimited list of subdomains to cover. Usually this is just `www`, but could also be anything else such as `www,dishwasher,git,purple`.
-* `debug` is `1` or `0` depending if this is a test or not. When debug is on, non-valid certificates are generated.
-* `heroku_app_name` is the name of the application on Heroku.
-* `auth_token` is the value of `ENV['AUTH_TOKEN']`.
 
 This will start the process in the background and output something like this:
 
 ```
 {
-  status_path: "http://localhost:5000/certificate_generation/3911dd66aade4cfdf9dd1d0e1cebde87"
+  "status": "queued",
+  "uuid": "a97fc5e2fce7bc60a96aa4c3e4907152",
+  "url": "http://0.0.0.0/certificate_request/a97fc5e2fce7bc60a96aa4c3e4907152?auth_token=testtesttest"
 }
 ```
 
@@ -94,17 +81,7 @@ That API URL will give you updates as to the certificate generation process. You
 The output looks something like this:
 
 ```
-{
-  token: "3911dd66aade4cfdf9dd1d0e1cebde87",
-  status: "success",
-  error: null,
-  domain: "substrakt.com",
-  subdomains: [
-    "www",
-    "www3"
-  ],
-  message: "Done"
-}
+{"status":"finished","message":"Generated certificate"}
 ```
 
 
