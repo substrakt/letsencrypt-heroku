@@ -3,6 +3,10 @@
 [![Code Climate](https://codeclimate.com/github/substrakt/letsencrypt-heroku/badges/gpa.svg)](https://codeclimate.com/github/substrakt/letsencrypt-heroku)
 [![Build Status](https://travis-ci.org/substrakt/letsencrypt-heroku.svg?branch=master)](https://travis-ci.org/substrakt/letsencrypt-heroku)
 
+**This is the master branch. It contains all the latest changes and should not be used in production unless you know what you're doing.** While `master` is supposed to be in a usable state, it may (and probably will) contain breaking changes from the last release.
+
+**Current stable release is [2.0.0](https://github.com/substrakt/letsencrypt-heroku/releases/tag/2.0.0)**
+
 > Let's make *everything* secure.
 
 With the advent of free SSL and Heroku finally offering free SSL endpoints, it's about time we made it ridiculously easy to get an SSL cert for any Heroku application and keep it up to date.

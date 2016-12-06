@@ -3,17 +3,11 @@ require 'cloudflare'
 
 class CloudflareChallenge
 
-  class NoCloudflareAPIKey < StandardError; end;
-  class NoCloudflareEmail < StandardError; end;
-
   attr_reader :zone, :domains, :client, :challenges, :token, :email, :api_key
 
   def initialize(options = {})
-    @email   = options[:email] || ENV['CLOUDFLARE_EMAIL']
-    @api_key = options[:api_key] || ENV['CLOUDFLARE_API_KEY']
-
-    raise NoCloudflareAPIKey if @api_key.blank?
-    raise NoCloudflareEmail  if @email.blank?
+    @email   = options[:email]
+    @api_key = options[:api_key]
 
     @zone    = options[:zone]
     @domains = options[:domains]
