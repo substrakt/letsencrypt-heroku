@@ -23,7 +23,7 @@ post '/certificate_request' do
     status 200
     token = SecureRandom.hex
     $redis.setex("status_#{token}", 3600, "queued")
-    CloudflareChallengeWorker.perform_async(@request_payload["zone"], @request_payload["domains"], token, @request_payload["heroku_app_name"], false)
+    CloudflareChallengeWorker.perform_async(@request_payload["zone"], @request_payload["domains"], token, @request_payload["heroku_app_name"], false, { email: @request_payload['cloudflare_email'], api_key: @request_payload['cloudflare_api_key'] })
     { status: 'queued', uuid: token, url: "#{request.env['rack.url_scheme']}://#{request.env['HTTP_HOST']}/certificate_request/#{token}?auth_token=#{ENV['AUTH_TOKEN']}" }.to_json
   else
     status 422
@@ -56,9 +56,9 @@ def authenticate!
 end
 
 def perform_preflight_check
-  check = PreflightCheck.new(heroku_token: ENV['HEROKU_OAUTH_KEY'], cloudflare_token: ENV['CLOUDFLARE_API_KEY'], cloudflare_email: ENV['CLOUDFLARE_EMAIL'])
+  check = PreflightCheck.new(heroku_token: ENV['HEROKU_OAUTH_KEY'])
 
-  if check.check_cloudflare == false || check.check_heroku == false
-    halt 422, "Could not connect to Heroku or Cloudflare."
+  if check.check_heroku == false
+    halt 422, "Could not connect to Heroku."
   end
 end

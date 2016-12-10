@@ -61,7 +61,9 @@ POST /certificate_request
 	"auth_token": "CHOSEN AUTH TOKEN",
 	"domains": ["www.substrakt.com", "substrakt.com"],
 	"zone": "CLOUDFLARE DOMAIN ZONE",
-	"heroku_app_name": "NAME OF HEROKU APP"
+	"heroku_app_name": "NAME OF HEROKU APP",
+	"cloudflare_api_key": "API KEY OF CLOUDFLARE ACCOUNT",
+	"cloudflare_email": "CLOUDFLARE EMAIL ADDRESS"
 }
 ```
 

@@ -3,9 +3,7 @@ require_relative 'test_helper'
 class CloudflareChallengeTest < MiniTest::Test
 
   def setup
-    ENV['CLOUDFLARE_API_KEY'] = '547348956734789576'
-    ENV['CLOUDFLARE_EMAIL']   = 'max@substrakt.com'
-    ENV['CONTACT_EMAIL']      = 'max@substrakt.com'
+    ENV['CONTACT_EMAIL'] = 'max@substrakt.com'
   end
 
   def teardown
@@ -16,22 +14,24 @@ class CloudflareChallengeTest < MiniTest::Test
     VCR.use_cassette('acme-new-authz') do
       a = CloudflareChallenge.new(zone: 'substrakt.com',
                                   domains: ['www.substrakt.com', 'substrakt.com'],
+                                  api_key: 'fsdfdsf',
+                                  email: 'adam@example.com',
                                   client: AcmeClientRegistration.new(debug: true).client)
       assert_equal CloudflareChallenge, a.class
     end
   end
 
-  def test_raise_an_exception_if_CLOUDFLARE_API_KEY_is_missing
+  def test_create_an_instance_with_custom_auth
+    ENV['CLOUDFLARE_EMAIL']   = nil
     ENV['CLOUDFLARE_API_KEY'] = nil
-    assert_raises CloudflareChallenge::NoCloudflareAPIKey do
-      CloudflareChallenge.new
-    end
-  end
-
-  def test_raise_an_exception_if_CLOUDFLARE_EMAIL_is_missing
-    ENV['CLOUDFLARE_EMAIL'] = nil
-    assert_raises CloudflareChallenge::NoCloudflareEmail do
-      CloudflareChallenge.new
+    VCR.use_cassette('acme-new-authz') do
+      a = CloudflareChallenge.new(zone: 'substrakt.com',
+                                  domains: ['www.substrakt.com', 'substrakt.com'],
+                                  api_key: 'fdhsufgdjshfgsd',
+                                  email: 'max@substrakt.com',
+                                  client: AcmeClientRegistration.new(debug: true).client)
+      assert_equal 'max@substrakt.com', a.email
+      assert_equal 'fdhsufgdjshfgsd', a.api_key
     end
   end
 
@@ -39,6 +39,8 @@ class CloudflareChallengeTest < MiniTest::Test
     VCR.use_cassette('acme-new-authz') do
       a = CloudflareChallenge.new(zone: 'substrakt.com',
                                   domains: ['www.substrakt.com', 'substrakt.com'],
+                                  api_key: 'fsdfdsf',
+                                  email: 'adam@example.com',
                                   client: AcmeClientRegistration.new(debug: true).client)
       assert_equal 'substrakt.com', a.zone
     end
@@ -48,6 +50,8 @@ class CloudflareChallengeTest < MiniTest::Test
     VCR.use_cassette('acme-new-authz') do
       a = CloudflareChallenge.new(zone: 'substrakt.com',
                                   domains: ['www.substrakt.com', 'substrakt.com'],
+                                  api_key: 'fsdfdsf',
+                                  email: 'adam@example.com',
                                   client: AcmeClientRegistration.new(debug: true).client)
       assert_equal ['www.substrakt.com', 'substrakt.com'], a.domains
     end
@@ -57,6 +61,8 @@ class CloudflareChallengeTest < MiniTest::Test
     VCR.use_cassette('acme-new-authz') do
       a = CloudflareChallenge.new(zone: 'substrakt.com',
                                   domains: ['www.substrakt.com', 'substrakt.com'],
+                                  api_key: 'fsdfdsf',
+                                  email: 'adam@example.com',
                                   client: AcmeClientRegistration.new(debug: true).client)
       assert_equal ['www.substrakt.com', 'substrakt.com'], a.create_challenge_records
     end
@@ -66,6 +72,8 @@ class CloudflareChallengeTest < MiniTest::Test
     VCR.use_cassette('acme-new-authz') do
       a = CloudflareChallenge.new(zone: 'substrakt.com',
                                   domains: ['www.substrakt.com', 'substrakt.com'],
+                                  api_key: 'fsdfdsf',
+                                  email: 'adam@example.com',
                                   client: AcmeClientRegistration.new(debug: true).client)
       assert_equal Challenge, a.challenges.first.class
     end
@@ -75,6 +83,8 @@ class CloudflareChallengeTest < MiniTest::Test
     VCR.use_cassette('acme-challenge-debug') do
       a = CloudflareChallenge.new(zone: 'substrakt.com',
                                   domains: ['max123.substrakt.com', 'max345.substrakt.com'],
+                                  api_key: 'fsdfdsf',
+                                  email: 'adam@example.com',
                                   client: AcmeClientRegistration.new(debug: true).client)
       assert_equal true, a.verify
     end

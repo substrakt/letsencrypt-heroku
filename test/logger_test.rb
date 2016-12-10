@@ -20,6 +20,8 @@ class LoggerTest < MiniTest::Test
     VCR.use_cassette('new-certificate-debug') do
       a = CertificateGenerator.new(challenge: CloudflareChallenge.new(zone: 'substrakt.com',
                                                                       domains: ['www.substrakt.com', 'substrakt.com'],
+                                                                      api_key: 'fsdfdsf',
+                                                                      email: 'adam@example.com',
                                                                       client: AcmeClientRegistration.new(debug: true).client))
       assert_equal "[Zone: substrakt.com - Domains: www.substrakt.com, substrakt.com] ----> This is a test message", Logger.log('This is a test message', generator: a)
     end
@@ -29,6 +31,8 @@ class LoggerTest < MiniTest::Test
     VCR.use_cassette('new-certificate-debug') do
       a = CertificateGenerator.new(challenge: CloudflareChallenge.new(zone: 'substrakt.com',
                                                                       token: 'testingtesting',
+                                                                      api_key: 'fsdfdsf',
+                                                                      email: 'adam@example.com',
                                                                       domains: ['www.substrakt.com', 'substrakt.com'],
                                                                       client: AcmeClientRegistration.new(debug: true).client))
       Logger.log('Test message', generator: a)
