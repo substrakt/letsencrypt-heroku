@@ -9,8 +9,8 @@ class CertificateGenerator
 
     Logger.log('Creating challenge records', generator: self)
     @challenge.create_challenge_records
-    Logger.log('Sleeping for 60 seconds', generator: self)
-    sleep(60) unless ENV['ENVIRONMENT'] == 'test'
+    Logger.log('Sleeping for 120 seconds', generator: self)
+    sleep(120) unless ENV['ENVIRONMENT'] == 'test'
     @challenge.verify
 
     @csr = Acme::Client::CertificateRequest.new(names: @challenge.domains)

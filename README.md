@@ -67,7 +67,8 @@ POST /certificate_request
 	"zone": "CLOUDFLARE DOMAIN ZONE",
 	"heroku_app_name": "NAME OF HEROKU APP",
 	"cloudflare_api_key": "API KEY OF CLOUDFLARE ACCOUNT",
-	"cloudflare_email": "CLOUDFLARE EMAIL ADDRESS"
+	"cloudflare_email": "CLOUDFLARE EMAIL ADDRESS",
+	"heroku_oauth_token": "HEROKU OAUTH TOKEN"
 }
 ```
 
