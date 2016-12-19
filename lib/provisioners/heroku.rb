@@ -10,10 +10,11 @@ module Provisioner
     def initialize(options = {})
       @certificate = options[:certificate]
       @app_name    = options[:app_name]
+      @oauth_key   = options[:oauth_key]
 
       @headers = {
         "Accept": 'application/vnd.heroku+json; version=3.sni_ssl_cert',
-        "Authorization": "Bearer #{ENV['HEROKU_OAUTH_KEY']}",
+        "Authorization": "Bearer #{@oauth_key}",
         "Content-Type": "application/json"
       }
 
