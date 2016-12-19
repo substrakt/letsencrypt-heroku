@@ -23,11 +23,7 @@ post '/certificate_request' do
     status 200
     token = SecureRandom.hex
     $redis.setex("status_#{token}", 3600, "queued")
-<<<<<<< 4b0003d9160961f0c8ed3a19b1026d60e3f29373
-    CloudflareChallengeWorker.perform_async(@request_payload["zone"], @request_payload["domains"], token, @request_payload["heroku_app_name"], false, { email: @request_payload['cloudflare_email'], api_key: @request_payload['cloudflare_api_key'] }, heroku: { oauth_key: @request_payload['heroku_api_key']})
-=======
     CloudflareChallengeWorker.perform_async(@request_payload["zone"], @request_payload["domains"], token, @request_payload["heroku_app_name"], false, { email: @request_payload['cloudflare_email'], api_key: @request_payload['cloudflare_api_key'] }, heroku: { oauth_key: @request_payload['heroku_oauth_token']})
->>>>>>> resolve merge
     { status: 'queued', uuid: token, url: "#{request.env['rack.url_scheme']}://#{request.env['HTTP_HOST']}/certificate_request/#{token}?auth_token=#{ENV['AUTH_TOKEN']}" }.to_json
   else
     status 422
