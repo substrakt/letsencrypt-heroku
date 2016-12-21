@@ -5,7 +5,7 @@
 
 **This is the master branch. It contains all the latest changes and should not be used in production unless you know what you're doing.** While `master` is supposed to be in a usable state, it may (and probably will) contain breaking changes from the last release.
 
-**Current stable release is [3.0.2](https://github.com/substrakt/letsencrypt-heroku/releases/tag/3.0.2)**
+**Current stable release is [3.1.1](https://github.com/substrakt/letsencrypt-heroku/releases/tag/3.1.1)**
 
 > Let's make *everything* secure.
 
