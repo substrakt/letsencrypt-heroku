@@ -1,0 +1,416 @@
+---
+http_interactions:
+- request:
+    method: head
+    uri: https://acme-v01.api.letsencrypt.org/acme/new-reg
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Acme::Client v0.3.7 (https://github.com/unixcharles/acme-client)
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 405
+      message: Method Not Allowed
+    headers:
+      Server:
+      - nginx
+      Content-Type:
+      - application/problem+json
+      Content-Length:
+      - '91'
+      Allow:
+      - POST
+      Boulder-Request-Id:
+      - YXN_bYtYIdyQRaemuah-eJTNdgCNd7bFxKEFcByci3U
+      Replay-Nonce:
+      - Pj15sW3ZpZoWp0Vt_hfKkivSx934F_oL4rrHVjtNpTQ
+      Expires:
+      - Wed, 21 Dec 2016 15:35:01 GMT
+      Cache-Control:
+      - max-age=0, no-cache, no-store
+      Pragma:
+      - no-cache
+      Date:
+      - Wed, 21 Dec 2016 15:35:01 GMT
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Wed, 21 Dec 2016 15:35:02 GMT
+- request:
+    method: post
+    uri: https://acme-v01.api.letsencrypt.org/acme/new-reg
+    body:
+      encoding: UTF-8
+      string: '{"protected":"eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIm5vbmNlIjoiUGoxNXNXM1pwWm9XcDBWdF9oZktraXZTeDkzNEZfb0w0cnJIVmp0TnBUUSIsImp3ayI6eyJrdHkiOiJSU0EiLCJlIjoiQVFBQiIsIm4iOiJuYVgtY3pnY3ZZR081SWdUY3Yta0FzRFFReGt3QzdVTGVrQnRKVGd0MFljX3VtVnprS2RfY2RlRDNiSzhScTZmVktxaGZIbWRja2x2THNfZEZBX19QVHAtaHZQQmxLV2FUWXdGc1p4M3cwX0dIeWRJenpsZHBQV0oyNTd0Uks3RkxYSjEyZDVYQjZsejhfcXl4aXAySDdEbVJRNERCSGl2UzBTYjBWeUdrSGpKQXVFcnlraDVCRGFiTGgwSGJGTDEtWHlTMmNhTDZETUhwMDUyTlcyZmcwc2RBNnQydW9wS3llYWsyR0VPc3hVbVdVWkZvY2x4US1ETjFPejdFUzZrbHQ3bFkxSW9uOS1pZzJGdmxQbmxqdk1mUE02MHhtQ1pZdzFOektNYTBYRTJrZkt5aVMwTXJ2b0E0N2hlS3JEaVhfclVBSnZNMkwzb3l6MUp6Uml3Zmo1amowb1JxY2FSUG4zMjJZZnVIOWp3aHBTZnZVMUhCQmhIcEFtZzItYVVyTkF2dVdhSUd5REJNTEtINGZLQ3lKQmNJMlVySXFTRlh5WWdRMjVlT01BRE5tcjFXUG8tRFloaXdDRWF0LTZLVzVTaGpRRWk0Y3poZGFQalVIRkxoRmxVZ0hGM0RsNGJ6WV8wTFdrTE9ZaFBoUVU5eFRvdEF0ZThnTVhlV2ZFTUl6d3lsU3gtTnF1NkNmb2Q1TjV5NXdPcWJzUWNtSFRKNGFCWXhBWDQ4U29Wb01xSWNYRlZVZzBqVGw4STc4MVlQWFV4LUtHZlNWLS0wdlhZb1ZMLVJOWVBQb1kzVUhHcUl3QmVILUZqNVk5WUtmM215RF9tYnFHX29IdVBqMnFucHRUU1lVUUFrRkxBTTBUc2t2NnEwNTV6Q29UOGx0NjdmRmpWQUhBNG9lcyJ9fQ","payload":"eyJyZXNvdXJjZSI6Im5ldy1yZWciLCJjb250YWN0IjpbIm1haWx0bzp0ZXN0QGV4YW1wbGUuY29tIl19","signature":"BRtTCYwBii_bQxYdrkq9b22kJQ5ZvgsVJFI18poKN-UqmYecIaP1zixcS5__WZ293DlHjZoyN8pI5lV2zGA4q4Y-ryr-hBQO4HUnaikdx2ptgXT3_u2rxNh5E-mgrd7QJ9OLYAMh5tKYCgwVEiKT7HdtQS_oqbFi_UmD_m30a-FsBiP2TYHykRZTSbzj8rOFzZHCXwySvvId77q2C0jQxKB4rcdG5Jv2bLo8H8cGXl5cKwbh_w9qLg3O3vUjytHY-ag9Iiiw5sUyxgH01GGHPwWmsyK8K6ADSjx2m1b2zvdDx8-sqiJwZa34IXAux6XNvDs2LFIEghtN9iqwbepmKoPqjrMsk8pN6bztgMgoz2M_V4jv3xyjFzwS8tfux3t-6XCCrs9VE0tt5QHutUInFPJzefSFk5I7593dxaz0FwfPYMXfqDkqO5LbTCoYc8kYhFbNkjJN6X5KQHrDMo88k5FeXTXz05F5is2Z58D97fsxNGPaGrGSqytQ-a1lwgqFa_EYVvU-asMM91wpimqoCY5OHGKme-sysVpUSGlBrSQAcOJwQWDHJ302GNdlOYhJdDlxC3TO5Hbg_DqRiOcBHXVhnxpxQ0CMPgMUGoWIIoog5JG-MrrkZctik0A0xgHeBF8rlwYtB9La8svrY12M21czYE6rCunkhILwaNPx8RY"}'
+    headers:
+      User-Agent:
+      - Acme::Client v0.3.7 (https://github.com/unixcharles/acme-client)
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Server:
+      - nginx
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '919'
+      Boulder-Request-Id:
+      - PaLvfo5pk2NTu_leEKTmrLAVeuB_D_jtN3rsrCKVXT4
+      Boulder-Requester:
+      - '7610829'
+      Link:
+      - <https://acme-v01.api.letsencrypt.org/acme/new-authz>;rel="next"
+      - <https://letsencrypt.org/documents/LE-SA-v1.1.1-August-1-2016.pdf>;rel="terms-of-service"
+      Location:
+      - https://acme-v01.api.letsencrypt.org/acme/reg/7610829
+      Replay-Nonce:
+      - 3Zd-ARCFYPeYVYhI6y2Gu-uiX1tt0vHlSP7cOomUkSc
+      X-Frame-Options:
+      - DENY
+      Strict-Transport-Security:
+      - max-age=604800
+      Expires:
+      - Wed, 21 Dec 2016 15:35:04 GMT
+      Cache-Control:
+      - max-age=0, no-cache, no-store
+      Pragma:
+      - no-cache
+      Date:
+      - Wed, 21 Dec 2016 15:35:04 GMT
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+          "id": 7610829,
+          "key": {
+            "kty": "RSA",
+            "n": "naX-czgcvYGO5IgTcv-kAsDQQxkwC7ULekBtJTgt0Yc_umVzkKd_cdeD3bK8Rq6fVKqhfHmdcklvLs_dFA__PTp-hvPBlKWaTYwFsZx3w0_GHydIzzldpPWJ257tRK7FLXJ12d5XB6lz8_qyxip2H7DmRQ4DBHivS0Sb0VyGkHjJAuErykh5BDabLh0HbFL1-XyS2caL6DMHp052NW2fg0sdA6t2uopKyeak2GEOsxUmWUZFoclxQ-DN1Oz7ES6klt7lY1Ion9-ig2FvlPnljvMfPM60xmCZYw1NzKMa0XE2kfKyiS0MrvoA47heKrDiX_rUAJvM2L3oyz1JzRiwfj5jj0oRqcaRPn322YfuH9jwhpSfvU1HBBhHpAmg2-aUrNAvuWaIGyDBMLKH4fKCyJBcI2UrIqSFXyYgQ25eOMADNmr1WPo-DYhiwCEat-6KW5ShjQEi4czhdaPjUHFLhFlUgHF3Dl4bzY_0LWkLOYhPhQU9xTotAte8gMXeWfEMIzwylSx-Nqu6Cfod5N5y5wOqbsQcmHTJ4aBYxAX48SoVoMqIcXFVUg0jTl8I781YPXUx-KGfSV--0vXYoVL-RNYPPoY3UHGqIwBeH-Fj5Y9YKf3myD_mbqG_oHuPj2qnptTSYUQAkFLAM0Tskv6q055zCoT8lt67fFjVAHA4oes",
+            "e": "AQAB"
+          },
+          "contact": [
+            "mailto:test@example.com"
+          ],
+          "initialIp": "213.123.191.198",
+          "createdAt": "2016-12-21T15:35:04.835836784Z",
+          "Status": "valid"
+        }
+    http_version: 
+  recorded_at: Wed, 21 Dec 2016 15:35:05 GMT
+- request:
+    method: post
+    uri: https://acme-v01.api.letsencrypt.org/acme/reg/7610829
+    body:
+      encoding: UTF-8
+      string: '{"protected":"eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIm5vbmNlIjoiM1pkLUFSQ0ZZUGVZVlloSTZ5Mkd1LXVpWDF0dDB2SGxTUDdjT29tVWtTYyIsImp3ayI6eyJrdHkiOiJSU0EiLCJlIjoiQVFBQiIsIm4iOiJuYVgtY3pnY3ZZR081SWdUY3Yta0FzRFFReGt3QzdVTGVrQnRKVGd0MFljX3VtVnprS2RfY2RlRDNiSzhScTZmVktxaGZIbWRja2x2THNfZEZBX19QVHAtaHZQQmxLV2FUWXdGc1p4M3cwX0dIeWRJenpsZHBQV0oyNTd0Uks3RkxYSjEyZDVYQjZsejhfcXl4aXAySDdEbVJRNERCSGl2UzBTYjBWeUdrSGpKQXVFcnlraDVCRGFiTGgwSGJGTDEtWHlTMmNhTDZETUhwMDUyTlcyZmcwc2RBNnQydW9wS3llYWsyR0VPc3hVbVdVWkZvY2x4US1ETjFPejdFUzZrbHQ3bFkxSW9uOS1pZzJGdmxQbmxqdk1mUE02MHhtQ1pZdzFOektNYTBYRTJrZkt5aVMwTXJ2b0E0N2hlS3JEaVhfclVBSnZNMkwzb3l6MUp6Uml3Zmo1amowb1JxY2FSUG4zMjJZZnVIOWp3aHBTZnZVMUhCQmhIcEFtZzItYVVyTkF2dVdhSUd5REJNTEtINGZLQ3lKQmNJMlVySXFTRlh5WWdRMjVlT01BRE5tcjFXUG8tRFloaXdDRWF0LTZLVzVTaGpRRWk0Y3poZGFQalVIRkxoRmxVZ0hGM0RsNGJ6WV8wTFdrTE9ZaFBoUVU5eFRvdEF0ZThnTVhlV2ZFTUl6d3lsU3gtTnF1NkNmb2Q1TjV5NXdPcWJzUWNtSFRKNGFCWXhBWDQ4U29Wb01xSWNYRlZVZzBqVGw4STc4MVlQWFV4LUtHZlNWLS0wdlhZb1ZMLVJOWVBQb1kzVUhHcUl3QmVILUZqNVk5WUtmM215RF9tYnFHX29IdVBqMnFucHRUU1lVUUFrRkxBTTBUc2t2NnEwNTV6Q29UOGx0NjdmRmpWQUhBNG9lcyJ9fQ","payload":"eyJyZXNvdXJjZSI6InJlZyIsImFncmVlbWVudCI6Imh0dHBzOi8vbGV0c2VuY3J5cHQub3JnL2RvY3VtZW50cy9MRS1TQS12MS4xLjEtQXVndXN0LTEtMjAxNi5wZGYifQ","signature":"cURhX4dWhF8Bk4ZC_HgUtS4tPnuWb3YFve74399kR29zLGP3eoRzbqgvEwkpanMHA-obRhJ8LPM2scD59cAGEgXjni89hqNvnAqrRNDwP6u_px-7hPoR5SqqIX6lACHKdidbPh__ajUJEyHD68BNnZ2P7Dn5heB8eDmarCj3BkkIgcoX_gF-kGtYyBerfcWGK9dBg_lmhCtuY8G-1M5ygnTEGctMe4AAEKIM7h4hWqQEuQRFRpz8o4rpgM0KGQJo3T2DuvNuduCaQ_XHNNqAm1gkYQOdwM1ieFHhBYhbd17ouHKQN9WYOn4z2vBvtkSxWAQKixFvMra5R3ahILBhADQiKXGfLFHQtW7xB0TubGDu53PmLppqiles5eP7NBepVpqNCgM4vA7D7KyagUWwtsQQhzG0KI_w6fkLv0jf11YL7ZogWQdvwzr-PyRMhdE6cvzLelA_sXD9cI9LxLTSeNpLsgtLq74XhZN_e5_CoLxftvFnddk77BCmNdHrjq_TPwWwFZg9UpshxdUb1fQeRIONs5rtnaVuGtbPr_2rQesIPO0eOPgdJ2wSmI1Ttwe8uUOcPncO5nKlgxHWEpOzB5Oi4rg4VA5cX-Oq3frVKcpQIlktTNwZSxk7rXPRd5Vtkpl0LUk6JNvKi5RCFwnhzIqY64z18cvKtQpZqiyvfLg"}'
+    headers:
+      User-Agent:
+      - Acme::Client v0.3.7 (https://github.com/unixcharles/acme-client)
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 202
+      message: Accepted
+    headers:
+      Server:
+      - nginx
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '992'
+      Boulder-Request-Id:
+      - dAQHAGxv-Vj8ObnM4Un7A_KCGVQV9jNH9Twj9B-9Zr0
+      Boulder-Requester:
+      - '7610829'
+      Link:
+      - <https://acme-v01.api.letsencrypt.org/acme/new-authz>;rel="next"
+      - <https://letsencrypt.org/documents/LE-SA-v1.1.1-August-1-2016.pdf>;rel="terms-of-service"
+      Replay-Nonce:
+      - UnECT6kxBG0xqVusoL4N9cZ4q210KD-yKFzQY3LRvEk
+      Expires:
+      - Wed, 21 Dec 2016 15:35:06 GMT
+      Cache-Control:
+      - max-age=0, no-cache, no-store
+      Pragma:
+      - no-cache
+      Date:
+      - Wed, 21 Dec 2016 15:35:06 GMT
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+          "id": 7610829,
+          "key": {
+            "kty": "RSA",
+            "n": "naX-czgcvYGO5IgTcv-kAsDQQxkwC7ULekBtJTgt0Yc_umVzkKd_cdeD3bK8Rq6fVKqhfHmdcklvLs_dFA__PTp-hvPBlKWaTYwFsZx3w0_GHydIzzldpPWJ257tRK7FLXJ12d5XB6lz8_qyxip2H7DmRQ4DBHivS0Sb0VyGkHjJAuErykh5BDabLh0HbFL1-XyS2caL6DMHp052NW2fg0sdA6t2uopKyeak2GEOsxUmWUZFoclxQ-DN1Oz7ES6klt7lY1Ion9-ig2FvlPnljvMfPM60xmCZYw1NzKMa0XE2kfKyiS0MrvoA47heKrDiX_rUAJvM2L3oyz1JzRiwfj5jj0oRqcaRPn322YfuH9jwhpSfvU1HBBhHpAmg2-aUrNAvuWaIGyDBMLKH4fKCyJBcI2UrIqSFXyYgQ25eOMADNmr1WPo-DYhiwCEat-6KW5ShjQEi4czhdaPjUHFLhFlUgHF3Dl4bzY_0LWkLOYhPhQU9xTotAte8gMXeWfEMIzwylSx-Nqu6Cfod5N5y5wOqbsQcmHTJ4aBYxAX48SoVoMqIcXFVUg0jTl8I781YPXUx-KGfSV--0vXYoVL-RNYPPoY3UHGqIwBeH-Fj5Y9YKf3myD_mbqG_oHuPj2qnptTSYUQAkFLAM0Tskv6q055zCoT8lt67fFjVAHA4oes",
+            "e": "AQAB"
+          },
+          "contact": [
+            "mailto:test@example.com"
+          ],
+          "agreement": "https://letsencrypt.org/documents/LE-SA-v1.1.1-August-1-2016.pdf",
+          "initialIp": "213.123.191.198",
+          "createdAt": "2016-12-21T15:35:04Z",
+          "Status": "valid"
+        }
+    http_version: 
+  recorded_at: Wed, 21 Dec 2016 15:35:07 GMT
+- request:
+    method: post
+    uri: https://acme-v01.api.letsencrypt.org/acme/new-authz
+    body:
+      encoding: UTF-8
+      string: '{"protected":"eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIm5vbmNlIjoiVW5FQ1Q2a3hCRzB4cVZ1c29MNE45Y1o0cTIxMEtELXlLRnpRWTNMUnZFayIsImp3ayI6eyJrdHkiOiJSU0EiLCJlIjoiQVFBQiIsIm4iOiJuYVgtY3pnY3ZZR081SWdUY3Yta0FzRFFReGt3QzdVTGVrQnRKVGd0MFljX3VtVnprS2RfY2RlRDNiSzhScTZmVktxaGZIbWRja2x2THNfZEZBX19QVHAtaHZQQmxLV2FUWXdGc1p4M3cwX0dIeWRJenpsZHBQV0oyNTd0Uks3RkxYSjEyZDVYQjZsejhfcXl4aXAySDdEbVJRNERCSGl2UzBTYjBWeUdrSGpKQXVFcnlraDVCRGFiTGgwSGJGTDEtWHlTMmNhTDZETUhwMDUyTlcyZmcwc2RBNnQydW9wS3llYWsyR0VPc3hVbVdVWkZvY2x4US1ETjFPejdFUzZrbHQ3bFkxSW9uOS1pZzJGdmxQbmxqdk1mUE02MHhtQ1pZdzFOektNYTBYRTJrZkt5aVMwTXJ2b0E0N2hlS3JEaVhfclVBSnZNMkwzb3l6MUp6Uml3Zmo1amowb1JxY2FSUG4zMjJZZnVIOWp3aHBTZnZVMUhCQmhIcEFtZzItYVVyTkF2dVdhSUd5REJNTEtINGZLQ3lKQmNJMlVySXFTRlh5WWdRMjVlT01BRE5tcjFXUG8tRFloaXdDRWF0LTZLVzVTaGpRRWk0Y3poZGFQalVIRkxoRmxVZ0hGM0RsNGJ6WV8wTFdrTE9ZaFBoUVU5eFRvdEF0ZThnTVhlV2ZFTUl6d3lsU3gtTnF1NkNmb2Q1TjV5NXdPcWJzUWNtSFRKNGFCWXhBWDQ4U29Wb01xSWNYRlZVZzBqVGw4STc4MVlQWFV4LUtHZlNWLS0wdlhZb1ZMLVJOWVBQb1kzVUhHcUl3QmVILUZqNVk5WUtmM215RF9tYnFHX29IdVBqMnFucHRUU1lVUUFrRkxBTTBUc2t2NnEwNTV6Q29UOGx0NjdmRmpWQUhBNG9lcyJ9fQ","payload":"eyJyZXNvdXJjZSI6Im5ldy1hdXRoeiIsImlkZW50aWZpZXIiOnsidHlwZSI6ImRucyIsInZhbHVlIjoic3Vic3RyYWt0LmNvbSJ9fQ","signature":"bpluNc0WEmrwnYVIfVDeuskE1Mu1YOUzXTn3P-nXYOILgYph8vVEd6Z7p_FdZgOv_s69hS-lhgnLrIZLYIGHNkjVxVjEvbYDhWzIF_bEjUgSvGwBTrYK5vztxqNU0bLhUXmLhL7AZG8FvB6hnZYpIgqR5k8PCe2EFB5Xo-Eg3ZrTVY-D29ratHnYl5NNxAMdxLQI-T-ugUvRejYAg_YaIhttTkVuMYUy7OaPsvTULDA0SBZaePeemSqFGYJzMfgA-TwUx3UiSu5ye8gzTi2CpVmh9XqskGQlZlyFpY-gbgc46CHPHAzC35HFWb562_pCPHO8I6N-rBxnyLipI_dSMRLchB-YkZXnEajwfhgXrYs4tSlhzRdbnAI6Hwa_dqKVVu72-0bJG0RazDx-bZIyamk7pXbF8qP_tsbIwPFuh_h1AXg3nZc_r_szisw4luFJm9SQUNWbUKK0zxMkbMvebp50leEbZjC_3EgBjfKu5JC9kPI1BsSBdp0xuD9YA-3Jfg4oBg66DKz97MGoBnzcPPgp6tLS9oBjpvE0PpC5MyisHIg-Swrss77k76Z8pKiAJgZtTGBNEkBj13LfqJhU3aSjV0UWYFKLKkHJE4jm_IZM1WFmYvVHOsrGT8zo8LVzfGNEvUS5f2lnLGVGElUiXoZkU_rhHqlF43ENOF1Jq-s"}'
+    headers:
+      User-Agent:
+      - Acme::Client v0.3.7 (https://github.com/unixcharles/acme-client)
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Server:
+      - nginx
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '998'
+      Boulder-Request-Id:
+      - _uY4YT14pbP2rzRLSW98kJ9b10aialJ6bhFJQr45bL4
+      Boulder-Requester:
+      - '7610829'
+      Link:
+      - <https://acme-v01.api.letsencrypt.org/acme/new-cert>;rel="next"
+      Location:
+      - https://acme-v01.api.letsencrypt.org/acme/authz/q-_fbuKEuu02DVO8yC03T1RdmNVk139x29jtry1XN5Y
+      Replay-Nonce:
+      - 6KevQrqT_uJLYyilTkUGOjAF-nLVpAs1qphfw4_89ts
+      X-Frame-Options:
+      - DENY
+      Strict-Transport-Security:
+      - max-age=604800
+      Expires:
+      - Wed, 21 Dec 2016 15:35:07 GMT
+      Cache-Control:
+      - max-age=0, no-cache, no-store
+      Pragma:
+      - no-cache
+      Date:
+      - Wed, 21 Dec 2016 15:35:07 GMT
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+          "identifier": {
+            "type": "dns",
+            "value": "substrakt.com"
+          },
+          "status": "pending",
+          "expires": "2016-12-28T15:35:07.675160491Z",
+          "challenges": [
+            {
+              "type": "tls-sni-01",
+              "status": "pending",
+              "uri": "https://acme-v01.api.letsencrypt.org/acme/challenge/q-_fbuKEuu02DVO8yC03T1RdmNVk139x29jtry1XN5Y/436472288",
+              "token": "MrnhdVEXxvRIUH_GmwZziYGlo0aIgJpIQIFIoda5x9Q"
+            },
+            {
+              "type": "dns-01",
+              "status": "pending",
+              "uri": "https://acme-v01.api.letsencrypt.org/acme/challenge/q-_fbuKEuu02DVO8yC03T1RdmNVk139x29jtry1XN5Y/436472289",
+              "token": "b3ciTrU1UQDIvbAy_TduemdcRhTnQA9xctVN8embvbE"
+            },
+            {
+              "type": "http-01",
+              "status": "pending",
+              "uri": "https://acme-v01.api.letsencrypt.org/acme/challenge/q-_fbuKEuu02DVO8yC03T1RdmNVk139x29jtry1XN5Y/436472290",
+              "token": "GeQPCx5lHh0mhUZRPKYt0BS-x4ToXHASa9CQXDelEmY"
+            }
+          ],
+          "combinations": [
+            [
+              0
+            ],
+            [
+              2
+            ],
+            [
+              1
+            ]
+          ]
+        }
+    http_version: 
+  recorded_at: Wed, 21 Dec 2016 15:35:07 GMT
+- request:
+    method: post
+    uri: https://acme-v01.api.letsencrypt.org/acme/new-authz
+    body:
+      encoding: UTF-8
+      string: '{"protected":"eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIm5vbmNlIjoiNktldlFycVRfdUpMWXlpbFRrVUdPakFGLW5MVnBBczFxcGhmdzRfODl0cyIsImp3ayI6eyJrdHkiOiJSU0EiLCJlIjoiQVFBQiIsIm4iOiJuYVgtY3pnY3ZZR081SWdUY3Yta0FzRFFReGt3QzdVTGVrQnRKVGd0MFljX3VtVnprS2RfY2RlRDNiSzhScTZmVktxaGZIbWRja2x2THNfZEZBX19QVHAtaHZQQmxLV2FUWXdGc1p4M3cwX0dIeWRJenpsZHBQV0oyNTd0Uks3RkxYSjEyZDVYQjZsejhfcXl4aXAySDdEbVJRNERCSGl2UzBTYjBWeUdrSGpKQXVFcnlraDVCRGFiTGgwSGJGTDEtWHlTMmNhTDZETUhwMDUyTlcyZmcwc2RBNnQydW9wS3llYWsyR0VPc3hVbVdVWkZvY2x4US1ETjFPejdFUzZrbHQ3bFkxSW9uOS1pZzJGdmxQbmxqdk1mUE02MHhtQ1pZdzFOektNYTBYRTJrZkt5aVMwTXJ2b0E0N2hlS3JEaVhfclVBSnZNMkwzb3l6MUp6Uml3Zmo1amowb1JxY2FSUG4zMjJZZnVIOWp3aHBTZnZVMUhCQmhIcEFtZzItYVVyTkF2dVdhSUd5REJNTEtINGZLQ3lKQmNJMlVySXFTRlh5WWdRMjVlT01BRE5tcjFXUG8tRFloaXdDRWF0LTZLVzVTaGpRRWk0Y3poZGFQalVIRkxoRmxVZ0hGM0RsNGJ6WV8wTFdrTE9ZaFBoUVU5eFRvdEF0ZThnTVhlV2ZFTUl6d3lsU3gtTnF1NkNmb2Q1TjV5NXdPcWJzUWNtSFRKNGFCWXhBWDQ4U29Wb01xSWNYRlZVZzBqVGw4STc4MVlQWFV4LUtHZlNWLS0wdlhZb1ZMLVJOWVBQb1kzVUhHcUl3QmVILUZqNVk5WUtmM215RF9tYnFHX29IdVBqMnFucHRUU1lVUUFrRkxBTTBUc2t2NnEwNTV6Q29UOGx0NjdmRmpWQUhBNG9lcyJ9fQ","payload":"eyJyZXNvdXJjZSI6Im5ldy1hdXRoeiIsImlkZW50aWZpZXIiOnsidHlwZSI6ImRucyIsInZhbHVlIjoid3d3LnN1YnN0cmFrdC5jb20ifX0","signature":"TllP3dOe3IOAhxnHuW1nV77Yd-z75jLduVGqmP4Jr4ot6uN3de5d2IANrQVosk0Qm4-SVv8xoiA7vQwmiysjPKSpGig0QQhLznwELJOPY5LmVnQGwE4snrqYuG1O8ijF4LpoFg34r9J2Tdr8igY7qCPuHvtjpaACp32ctzDHiQI7_o6uG7CREncu8VgTm9xXNPyB4CdosTmMS7eYK13rg7mPsASctE1SHYrGSxopaVT6NF-BQUvsgORMRk_i3JCnpmhGGFv5at8r7hIFcjIvFf2U9UO7i74ldys3h5lLCw_zdXwqPNs1pb7kEimz6xRdlBa5FMAWgKeLUUVQv_tm7mWMXc4C1sdq4mM3-E23rD2GFAdJS52yZzEAC7bo2wpcIwhs8hDeC-LJAvYFDvHZYbcYBocyr8OCskbeCb9CXbGM0HvkR84hHtKDFnNBK5WRI5dAu_hCVE6OA2c7iiIFqbIWIZOrCAtOJPE6ZFnTExkxyh16kR2mcWGA53t677674Vc0Dv96oxANrkjQZBTuCanxrMJxbwfZ2GS8qsrh88-iXFe6abvkbGbXMIPuVLJRWimxzNnNhLWzx-meZ1hhpEeZOM3m4yrvnJ_UTyK9HYWfEjczZtQj_qbyiZJ9HJ4hHRDMX2AIV85BGmcxsc40Xy4AGSyAWWu7YP6Bqdph2E8"}'
+    headers:
+      User-Agent:
+      - Acme::Client v0.3.7 (https://github.com/unixcharles/acme-client)
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Server:
+      - nginx
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '1002'
+      Boulder-Request-Id:
+      - rfwep2r-lQxaU5QOIi_BBnNkZ4L9RNw5oro20RM5dD0
+      Boulder-Requester:
+      - '7610829'
+      Link:
+      - <https://acme-v01.api.letsencrypt.org/acme/new-cert>;rel="next"
+      Location:
+      - https://acme-v01.api.letsencrypt.org/acme/authz/ejZIbqPZ49qROmBfjNI7LDPjL8EOMUWvx_x-EIDAZ2k
+      Replay-Nonce:
+      - wj2sb4fNdh1OzC_rXqySbbb6kZKBfWsuuK4L5OCJl3c
+      X-Frame-Options:
+      - DENY
+      Strict-Transport-Security:
+      - max-age=604800
+      Expires:
+      - Wed, 21 Dec 2016 15:35:08 GMT
+      Cache-Control:
+      - max-age=0, no-cache, no-store
+      Pragma:
+      - no-cache
+      Date:
+      - Wed, 21 Dec 2016 15:35:08 GMT
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+          "identifier": {
+            "type": "dns",
+            "value": "www.substrakt.com"
+          },
+          "status": "pending",
+          "expires": "2016-12-28T15:35:08.437519557Z",
+          "challenges": [
+            {
+              "type": "dns-01",
+              "status": "pending",
+              "uri": "https://acme-v01.api.letsencrypt.org/acme/challenge/ejZIbqPZ49qROmBfjNI7LDPjL8EOMUWvx_x-EIDAZ2k/436472336",
+              "token": "m9D7Hda5GlEwZT0EbXA5d7pMwmSN-hZG5BbGcOnA7KE"
+            },
+            {
+              "type": "tls-sni-01",
+              "status": "pending",
+              "uri": "https://acme-v01.api.letsencrypt.org/acme/challenge/ejZIbqPZ49qROmBfjNI7LDPjL8EOMUWvx_x-EIDAZ2k/436472337",
+              "token": "dIJBXTFvLpX0BXYpR7OebY3CdCfKcXk7uDcDpz0EZ6w"
+            },
+            {
+              "type": "http-01",
+              "status": "pending",
+              "uri": "https://acme-v01.api.letsencrypt.org/acme/challenge/ejZIbqPZ49qROmBfjNI7LDPjL8EOMUWvx_x-EIDAZ2k/436472338",
+              "token": "Jyeuz3I1Xv4mfx4lIuBOYZVx1rzaEz0HOi4Y9hUrtY4"
+            }
+          ],
+          "combinations": [
+            [
+              1
+            ],
+            [
+              2
+            ],
+            [
+              0
+            ]
+          ]
+        }
+    http_version: 
+  recorded_at: Wed, 21 Dec 2016 15:35:08 GMT
+- request:
+    method: post
+    uri: https://api.cloudflare.com/host-gw.html
+    body:
+      encoding: US-ASCII
+      string: a=rec_new&z=substrakt.com&type=TXT&name=_acme-challenge.substrakt.com&content=ao6fz9n711lRek7ZSSxFtDiRJG-qwqjBK8mnx4NEwss&ttl=1&service_mode=1
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 21 Dec 2016 15:35:09 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - CF_UALE=deleted; expires=Thu, 01-Jan-1970 00:00:01 GMT; Max-Age=0
+      - __cfduid=d3801dc40782ece0e49a9ca63af9548051482334508; expires=Thu, 21-Dec-17
+        15:35:08 GMT; path=/; domain=.cloudflare.com; HttpOnly
+      - vses2=cofepf92s8se2o0ur4kekdpot0; path=/; domain=www.cloudflare.com; secure;
+        HttpOnly
+      Expires:
+      - Thu, 19 Nov 1981 08:52:00 GMT
+      Cache-Control:
+      - no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+      Pragma:
+      - no-cache
+      Strict-Transport-Security:
+      - max-age=31536000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 314c66f84aed0a8a-LHR
+    body:
+      encoding: ASCII-8BIT
+      string: '{"request":{"act":null},"result":"error","msg":"No or invalid host_key.","err_code":100}'
+    http_version: 
+  recorded_at: Wed, 21 Dec 2016 15:35:09 GMT
+recorded_with: VCR 3.0.3

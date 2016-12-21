@@ -28,7 +28,11 @@ class AppTest < MiniTest::Test
       zone: ['substrakt.com'],
       auth_token: 'secrettoken'
     }
-    post '/certificate_request', valid_params.to_json
+
+    VCR.use_cassette('acme-new-actual-authz') do
+      post '/certificate_request', valid_params.to_json
+    end
+
     assert_equal 'application/json', last_response.content_type
     assert_equal 'queued', JSON.parse(last_response.body)["status"]
     assert_match /\w{32}/, JSON.parse(last_response.body)["uuid"]

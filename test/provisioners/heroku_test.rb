@@ -15,6 +15,7 @@ class Provisioner::HerokuTest < MiniTest::Test
     VCR.use_cassette('new-cert-provisioner-heroku') do
       a = CertificateGenerator.new(challenge: CloudflareChallenge.new(zone: 'substrakt.com',
                                                                       domains: ['www.substrakt.com', 'substrakt.com'],
+                                                                      email: 'adam@example.com',
                                                                       client: AcmeClientRegistration.new(debug: true).client))
       b = Provisioner::Heroku.new(app_name: 'ssl-test-maxwoolf', certificate: a.certificate)
       assert_equal false, b.provision!
@@ -25,6 +26,7 @@ class Provisioner::HerokuTest < MiniTest::Test
     VCR.use_cassette('new-cert-provisioner-heroku-success') do
       a = CertificateGenerator.new(challenge: CloudflareChallenge.new(zone: 'substrakt.com',
                                                                       domains: ['www.substrakt.com', 'substrakt.com'],
+                                                                      email: 'adam@example.com',
                                                                       client: AcmeClientRegistration.new(debug: true).client))
       b = Provisioner::Heroku.new(app_name: 'ssl-test-maxwoolf', certificate: a.certificate)
       assert_equal true, b.provision!
