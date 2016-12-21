@@ -26,7 +26,8 @@ class AppTest < MiniTest::Test
       domains: ['substrakt.com', 'www.substrakt.com'],
       heroku_app_name: ['substrakt-live'],
       zone: ['substrakt.com'],
-      auth_token: 'secrettoken'
+      auth_token: 'secrettoken',
+      callback_url: 'http://example.com/callback'
     }
 
     VCR.use_cassette('acme-new-actual-authz') do

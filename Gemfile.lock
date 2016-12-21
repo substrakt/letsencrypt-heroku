@@ -31,7 +31,10 @@ GEM
       multi_json (>= 1.3)
       securecompare
       url_safe_base64
+    metaclass (0.0.4)
     minitest (5.9.0)
+    mocha (1.2.1)
+      metaclass (~> 0.0.1)
     multi_json (1.12.1)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
@@ -75,6 +78,7 @@ DEPENDENCIES
   httparty
   json-jwt (= 1.5.2)
   minitest
+  mocha
   puma
   rack-test
   rake

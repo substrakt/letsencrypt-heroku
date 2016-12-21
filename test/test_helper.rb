@@ -3,6 +3,7 @@ ENV['ENVIRONMENT'] = 'test'
 require 'minitest/autorun'
 require 'rack/test'
 require 'vcr'
+require "mocha/mini_test"
 
 require_relative '../app'
 require_relative '../lib/acme_client_registration'
