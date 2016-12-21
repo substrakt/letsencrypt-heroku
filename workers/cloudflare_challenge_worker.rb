@@ -26,7 +26,7 @@ class CloudflareChallengeWorker
       generator = CertificateGenerator.new(challenge: a)
       cert = generator.certificate
       Logger.log("Generated certificate", generator: generator)
-      Provisioner::Heroku.new(app_name: app_name, certificate: cert, oauth_key: heroku[:oauth_key]).provision!
+      Provisioner::Heroku.new(app_name: app_name, certificate: cert, oauth_key: heroku["heroku"]["oauth_key"]).provision!
       $redis.setex("status_#{token}", 3600, "finished")
     rescue Exception => e
       Logger.log("Failed. Error given was #{e}")
