@@ -51,7 +51,7 @@ You can deploy this application anywhere you can run a Rack app. (Azure, Heroku,
 1. Download the repo `git clone https://github.com/substrakt/letsencrypt-heroku.git`
 1. Install Redis. (`brew install redis`)
 1. Install foreman (`gem install foreman`)
-1. Copy `.envsample` to `.env` using `cp .envsample .env`. The `.env` file is read when the application starts and should contain all of the required environment variables. One of these is the token generated earlier for Heroku. **DO NOT COMMIT THIS FILE TO SOURCE CONTROL**
+1. Copy `.env.sample` to `.env` using `cp .env.sample .env`. The `.env` file is read when the application starts and should contain all of the required environment variables. One of these is the token generated earlier for Heroku. **DO NOT COMMIT THIS FILE TO SOURCE CONTROL**
 1. Run the application locally using `foreman start`.
 1. Deploy however you want to!
 
